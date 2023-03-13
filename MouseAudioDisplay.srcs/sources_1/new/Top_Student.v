@@ -87,13 +87,13 @@ module Top_Student (
     display_pixels display(.mouse_x(limit_x), .mouse_y(limit_y), .shown_segments(shown_segments), 
         .pixel_index(pixel_index), .color_chooser(colour_chooser));
 
-    wire [3:0] number;
-    number_decoder decode(.shown_segments(shown_segments), .number(number));
-    assign led15 = number != 10;
+    // wire [3:0] number;
+    // number_decoder decode(.shown_segments(shown_segments), .number(number));
+    // assign led15 = number != 10;
 
-    wire clk1m; parameter prescaler_1m = 6'd49;
-    clk_divider clk_divider25m(.clk(clk), .prescaler(prescaler_1m), .clk_output(clk1m));
-    display_segment(.clk(clk1m), .number(number), .volume(0), .an(an), .seg(seg), .dp(dp));
+    // wire clk1m; parameter prescaler_1m = 6'd49;
+    // clk_divider clk_divider25m(.clk(clk), .prescaler(prescaler_1m), .clk_output(clk1m));
+    // display_segment(.clk(clk1m), .number(number), .volume(0), .an(an), .seg(seg), .dp(dp));
     
 endmodule
 
