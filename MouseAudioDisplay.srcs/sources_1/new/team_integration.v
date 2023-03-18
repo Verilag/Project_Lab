@@ -42,16 +42,16 @@ module team_integration(
     display_pixels display(.mouse_x(limit_x), .mouse_y(limit_y), .shown_segments(shown_segments), 
         .pixel_index(pixel_index), .color_chooser(colour_chooser));
 
-     wire [3:0] number;
-     number_decoder decode(.shown_segments(shown_segments), .number(number));
-     assign led15 = sw15 ? number != 10 : 0;
-
-     wire clk10k; parameter prescaler_10k = 30'd4_999; // 10kHz
-     clock_divider clk_divider10k(.clk(clk), .prescaler(prescaler_10k), .clk_output(clk10k));
-     display_segment(.clk(clk10k), .number(number), .volume(0), .an(an), .seg(seg), .dp(dp));
-     
-     wire beep;
-     play_audio sound(.clk(clk10k), .number(number), .beep(beep));
-     assign led14 = beep;
+    wire [3:0] number;
+    number_decoder decode(.shown_segments(shown_segments), .number(number));
+    assign led15 = sw15 ? number != 10 : 0;
+    
+    wire clk10k; parameter prescaler_10k = 30'd4_999; // 10kHz
+    clock_divider clk_divider10k(.clk(clk), .prescaler(prescaler_10k), .clk_output(clk10k));
+    display_segment(.clk(clk10k), .number(number), .volume(0), .an(an), .seg(seg), .dp(dp));
+    
+    wire beep;
+    play_audio sound(.clk(clk10k), .number(number), .beep(beep));
+    assign led14 = beep;
      
 endmodule
