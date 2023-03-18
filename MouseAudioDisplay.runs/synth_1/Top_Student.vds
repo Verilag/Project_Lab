@@ -2,8 +2,8 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Sat Mar 18 15:57:09 2023
-# Process ID: 4452
+# Start of session at: Sun Mar 19 00:46:00 2023
+# Process ID: 1644
 # Current directory: C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.runs/synth_1
 # Command line: vivado.exe -log Top_Student.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Top_Student.tcl
 # Log file: C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.runs/synth_1/Top_Student.vds
@@ -15,14 +15,14 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 32392 
+INFO: Helper process launched with PID 27092 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 356.207 ; gain = 99.230
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 356.219 ; gain = 99.320
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'Top_Student' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:49]
+INFO: [Synth 8-6157] synthesizing module 'Top_Student' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:14]
 	Parameter prescaler_6p25m bound to: 7 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'clk_divider' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:1]
-INFO: [Synth 8-6155] done synthesizing module 'clk_divider' (1#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:1]
+INFO: [Synth 8-6157] synthesizing module 'clock_divider' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/clock_divider.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'clock_divider' (1#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/clock_divider.v:23]
 INFO: [Synth 8-6157] synthesizing module 'Oled_Display' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Oled_Display.v:36]
 	Parameter Width bound to: 96 - type: integer 
 	Parameter Height bound to: 64 - type: integer 
@@ -90,63 +90,87 @@ WARNING: [Synth 8-6014] Unused sequential element x_inter_reg was removed.  [C:/
 WARNING: [Synth 8-6014] Unused sequential element inc_reg was removed.  [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Mouse_Control.vhd:519]
 WARNING: [Synth 8-6014] Unused sequential element y_inter_reg was removed.  [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Mouse_Control.vhd:525]
 INFO: [Synth 8-256] done synthesizing module 'MouseCtl' (4#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Mouse_Control.vhd:212]
-INFO: [Synth 8-6157] synthesizing module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:175]
+INFO: [Synth 8-6157] synthesizing module 'team_integration' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v:23]
+	Parameter prescaler_10k bound to: 30'b000000000000000001001110000111 
+INFO: [Synth 8-6157] synthesizing module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v:22]
 	Parameter screen_height bound to: 64 - type: integer 
 	Parameter screen_width bound to: 96 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'limit_mouse_coor' (5#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:175]
-WARNING: [Synth 8-689] width (12) of port connection 'x' does not match port width (7) of module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:79]
-WARNING: [Synth 8-689] width (12) of port connection 'y' does not match port width (7) of module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:79]
-INFO: [Synth 8-6157] synthesizing module 'click_detector' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:223]
-INFO: [Synth 8-6157] synthesizing module 'coord_to_segment' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:15]
-INFO: [Synth 8-6155] done synthesizing module 'coord_to_segment' (6#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:15]
-WARNING: [Synth 8-5788] Register segments_reg in module click_detector is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:235]
-INFO: [Synth 8-6155] done synthesizing module 'click_detector' (7#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:223]
-INFO: [Synth 8-6157] synthesizing module 'display_pixels' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:188]
+INFO: [Synth 8-6155] done synthesizing module 'limit_mouse_coor' (5#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v:22]
+WARNING: [Synth 8-689] width (12) of port connection 'x' does not match port width (7) of module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v:34]
+WARNING: [Synth 8-689] width (12) of port connection 'y' does not match port width (7) of module 'limit_mouse_coor' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v:34]
+INFO: [Synth 8-6157] synthesizing module 'click_detector' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v:36]
+INFO: [Synth 8-6157] synthesizing module 'coord_to_segment' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'coord_to_segment' (6#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v:23]
+WARNING: [Synth 8-5788] Register segments_reg in module click_detector is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v:47]
+INFO: [Synth 8-6155] done synthesizing module 'click_detector' (7#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v:36]
+INFO: [Synth 8-6157] synthesizing module 'display_pixels' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:22]
 	Parameter cursor_color bound to: 16'b1111100000000000 
 	Parameter green_color bound to: 16'b0000011111100000 
 	Parameter outline_color bound to: 16'b1111111111111111 
 	Parameter white_color bound to: 16'b1111111111111111 
 	Parameter background_color bound to: 16'b0000000000000000 
-WARNING: [Synth 8-567] referenced signal 'mouse_x' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'col' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'mouse_y' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'row' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'green_border' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'outline' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'shown_segments' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-WARNING: [Synth 8-567] referenced signal 'index_within' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:213]
-INFO: [Synth 8-6155] done synthesizing module 'display_pixels' (8#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:188]
-WARNING: [Synth 8-3848] Net led15 in module/entity Top_Student does not have driver. [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:52]
-WARNING: [Synth 8-3848] Net an in module/entity Top_Student does not have driver. [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:54]
-WARNING: [Synth 8-3848] Net seg in module/entity Top_Student does not have driver. [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:54]
-WARNING: [Synth 8-3848] Net dp in module/entity Top_Student does not have driver. [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:54]
-INFO: [Synth 8-6155] done synthesizing module 'Top_Student' (9#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:49]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port led15
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[0]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[0]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port dp
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[10]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[9]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[8]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[7]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[0]
+WARNING: [Synth 8-567] referenced signal 'mouse_x' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'col' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'mouse_y' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'row' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'green_border' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'outline' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'shown_segments' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+WARNING: [Synth 8-567] referenced signal 'index_within' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:47]
+INFO: [Synth 8-6155] done synthesizing module 'display_pixels' (8#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v:22]
+INFO: [Synth 8-6157] synthesizing module 'number_decoder' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v:44]
+	Parameter zero bound to: 13'b1111110111111 
+	Parameter one bound to: 13'b1001010010100 
+	Parameter two bound to: 13'b1110111110111 
+	Parameter three bound to: 13'b1111011110111 
+	Parameter four bound to: 13'b1001011111101 
+	Parameter five bound to: 13'b1111011101111 
+	Parameter six bound to: 13'b1111111101111 
+	Parameter seven bound to: 13'b1001010010111 
+	Parameter eight bound to: 13'b1111111111111 
+	Parameter nine bound to: 13'b1111011111111 
+INFO: [Synth 8-6155] done synthesizing module 'number_decoder' (9#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v:44]
+INFO: [Synth 8-6157] synthesizing module 'display_segment' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/segment.v:23]
+	Parameter NONE bound to: 7'b1111111 
+	Parameter ZERO bound to: 7'b1000000 
+	Parameter ONE bound to: 7'b1111001 
+	Parameter TWO bound to: 7'b0100100 
+	Parameter THREE bound to: 7'b0110000 
+	Parameter FOUR bound to: 7'b0011001 
+	Parameter FIVE bound to: 7'b0010010 
+	Parameter SIX bound to: 7'b0000010 
+	Parameter SEVEN bound to: 7'b1111000 
+	Parameter EIGHT bound to: 7'b0000000 
+	Parameter NINE bound to: 7'b0010000 
+WARNING: [Synth 8-567] referenced signal 'nums' should be on the sensitivity list [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/segment.v:55]
+INFO: [Synth 8-6155] done synthesizing module 'display_segment' (10#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/segment.v:23]
+INFO: [Synth 8-6157] synthesizing module 'play_audio' [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/audio.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'play_audio' (11#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/audio.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'team_integration' (12#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v:23]
+WARNING: [Synth 8-3848] Net led in module/entity Top_Student does not have driver. [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:18]
+INFO: [Synth 8-6155] done synthesizing module 'Top_Student' (13#1) [C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v:14]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[11]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[10]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[9]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[8]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[7]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[11]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[10]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[9]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[8]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[7]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[9]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[8]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[7]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[6]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[5]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[4]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[3]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[2]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[1]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[0]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 412.543 ; gain = 155.566
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 412.922 ; gain = 156.023
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -159,10 +183,10 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 412.543 ; gain = 155.566
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 412.922 ; gain = 156.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 412.543 ; gain = 155.566
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 412.922 ; gain = 156.023
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -178,22 +202,22 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 758.398 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 760.109 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:12 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 760.109 ; gain = 503.211
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:12 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 760.109 ; gain = 503.211
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:05 ; elapsed = 00:00:12 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 760.109 ; gain = 503.211
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5545] ROM "clk_output0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'Oled_Display'
@@ -266,6 +290,7 @@ INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address si
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "number" won't be mapped to RAM because it is too sparse
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -368,7 +393,7 @@ reset_enable_reporting_wait_ack | 0000000010000000000000000000000000000 |       
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'MouseCtl'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:13 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 760.109 ; gain = 503.211
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -381,6 +406,7 @@ Start RTL Component Statistics
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
+	   2 Input     32 Bit       Adders := 1     
 	   2 Input     26 Bit       Adders := 1     
 	   2 Input     24 Bit       Adders := 1     
 	   2 Input     17 Bit       Adders := 1     
@@ -390,8 +416,10 @@ Detailed RTL Component Info :
 	   2 Input      7 Bit       Adders := 1     
 	   2 Input      6 Bit       Adders := 1     
 	   2 Input      4 Bit       Adders := 3     
+	   2 Input      2 Bit       Adders := 1     
 +---Registers : 
 	               40 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	               26 Bit    Registers := 1     
 	               24 Bit    Registers := 1     
 	               17 Bit    Registers := 1     
@@ -401,8 +429,9 @@ Detailed RTL Component Info :
 	                8 Bit    Registers := 4     
 	                7 Bit    Registers := 1     
 	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 4     
-	                1 Bit    Registers := 35    
+	                4 Bit    Registers := 5     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 37    
 +---Muxes : 
 	   2 Input     40 Bit        Muxes := 3     
 	  37 Input     37 Bit        Muxes := 1     
@@ -415,18 +444,22 @@ Detailed RTL Component Info :
 	   2 Input     17 Bit        Muxes := 19    
 	  17 Input     17 Bit        Muxes := 1     
 	   2 Input     16 Bit        Muxes := 3     
-	   2 Input     13 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 4     
 	   2 Input     12 Bit        Muxes := 10    
 	   2 Input     11 Bit        Muxes := 1     
 	   2 Input      9 Bit        Muxes := 2     
 	  37 Input      8 Bit        Muxes := 3     
-	   2 Input      7 Bit        Muxes := 4     
+	   2 Input      7 Bit        Muxes := 5     
+	   3 Input      7 Bit        Muxes := 1     
+	  15 Input      7 Bit        Muxes := 1     
 	  32 Input      6 Bit        Muxes := 1     
 	   2 Input      6 Bit        Muxes := 1     
 	   2 Input      5 Bit        Muxes := 2     
 	  32 Input      5 Bit        Muxes := 1     
 	  37 Input      4 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 11    
+	  11 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 13    
 	  17 Input      1 Bit        Muxes := 4     
 	  37 Input      1 Bit        Muxes := 20    
 ---------------------------------------------------------------------------------
@@ -436,7 +469,7 @@ Finished RTL Component Statistics
 Start RTL Hierarchical Component Statistics 
 ---------------------------------------------------------------------------------
 Hierarchical RTL Component report 
-Module clk_divider 
+Module clock_divider 
 Detailed RTL Component Info : 
 +---Registers : 
 	                1 Bit    Registers := 1     
@@ -514,11 +547,36 @@ Detailed RTL Component Info :
 +---Registers : 
 	               13 Bit    Registers := 1     
 +---Muxes : 
-	   2 Input     13 Bit        Muxes := 2     
+	   2 Input     13 Bit        Muxes := 4     
 Module display_pixels 
 Detailed RTL Component Info : 
 +---Muxes : 
 	   2 Input     16 Bit        Muxes := 3     
+Module number_decoder 
+Detailed RTL Component Info : 
++---Muxes : 
+	  11 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+Module display_segment 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	                2 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 1     
+	   3 Input      7 Bit        Muxes := 1     
+	  15 Input      7 Bit        Muxes := 1     
+Module play_audio 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -540,63 +598,94 @@ INFO: [Synth 8-5546] ROM "fsm_next_state0" won't be mapped to RAM because it is 
 INFO: [Synth 8-5546] ROM "fsm_next_state0" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5545] ROM "periodic_check_tick" won't be mapped to RAM because address size (26) is larger than maximum supported(25)
 INFO: [Synth 8-5546] ROM "timeout" won't be mapped to RAM because it is too sparse
-WARNING: [Synth 8-3331] design Top_Student has unconnected port led15
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port an[0]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port seg[0]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port dp
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[10]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[9]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[8]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[7]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[1]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[0]
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[0]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[1]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[2]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[3]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[4]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[5]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[6]' (FDSE) to 'mouse/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[7]' (FDSE) to 'mouse/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[8]' (FDSE) to 'mouse/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[9]' (FDSE) to 'mouse/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[10]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[11]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[0]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[1]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[2]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[3]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[4]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[5]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[6]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[7]' (FDSE) to 'mouse/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[8]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[10]' (FDRE) to 'mouse/y_max_reg[11]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mouse/y_max_reg[11] )
+INFO: [Synth 8-5546] ROM "decode/number" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "clk_divider10k/clk_output0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+DSP Report: Generating DSP sound/counter1, operation Mode is: (D+(A:0x1))*(B:0x3e8).
+DSP Report: operator sound/counter1 is absorbed into DSP sound/counter1.
+DSP Report: operator sound/counter2 is absorbed into DSP sound/counter1.
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[11]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[10]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[9]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[8]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_x[7]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[11]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[10]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[9]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[8]
+WARNING: [Synth 8-3331] design team_integration has unconnected port mouse_y[7]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[9]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[8]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[7]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[6]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[5]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[4]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[3]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[2]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[1]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port led[0]
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[0]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[0]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[1]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[2]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[3]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[4]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[5]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[6]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[8]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[10]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[11]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[1]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[2]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[3]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[4]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[5]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[6]' (FDSE) to 'mouse/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[7]' (FDSE) to 'mouse/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse/y_max_reg[9]' (FDSE) to 'mouse/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[7]' (FDSE) to 'mouse/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[8]' (FDSE) to 'mouse/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse/x_max_reg[10]' (FDRE) to 'mouse/x_max_reg[11]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mouse/x_max_reg[11] )
 WARNING: [Synth 8-3332] Sequential element (mouse/xpos_reg[11]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/xpos_reg[10]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/xpos_reg[9]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/xpos_reg[8]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/xpos_reg[7]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_new_reg) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_overflow_reg) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[7]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[6]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[5]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[4]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[3]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[2]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[1]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_inc_reg[0]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_sign_reg) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[11]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[10]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[9]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[8]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[7]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[6]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[5]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[4]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[3]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[2]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[1]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/y_pos_reg[0]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[11]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[10]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[9]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[8]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[7]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[6]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[5]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[4]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[3]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[2]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[1]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/ypos_reg[0]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/zpos_reg[3]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/zpos_reg[2]) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/zpos_reg[1]) is unused and will be removed from module Top_Student.
@@ -604,10 +693,51 @@ WARNING: [Synth 8-3332] Sequential element (mouse/zpos_reg[0]) is unused and wil
 WARNING: [Synth 8-3332] Sequential element (mouse/middle_down_reg) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/middle_reg) is unused and will be removed from module Top_Student.
 WARNING: [Synth 8-3332] Sequential element (mouse/new_event_reg) is unused and will be removed from module Top_Student.
-WARNING: [Synth 8-3332] Sequential element (mouse/y_max_reg[11]) is unused and will be removed from module Top_Student.
-WARNING: [Synth 8-3332] Sequential element (mouse/y_max_reg[9]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (mouse/x_max_reg[11]) is unused and will be removed from module Top_Student.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[12]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[8]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[9]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[7]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[2]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[10]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[11]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[1]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[0]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[4]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[5]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[6]_C )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\team/click/segments_reg[3]_C )
+WARNING: [Synth 8-3332] Sequential element (mouse/x_max_reg[9]) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[12]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[11]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[10]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[9]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[8]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[7]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[6]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[5]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[4]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[3]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[2]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[1]_C) is unused and will be removed from module Top_Student.
+WARNING: [Synth 8-3332] Sequential element (team/click/segments_reg[0]_C) is unused and will be removed from module Top_Student.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:18 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:09 ; elapsed = 00:00:17 . Memory (MB): peak = 760.109 ; gain = 503.211
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping  Report (see note below)
++------------+-----------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping           | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-----------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|play_audio  | (D+(A:0x1))*(B:0x3e8) | 1      | 10     | -      | 4      | 15     | 0    | 0    | -    | 0    | 0     | 0    | 0    | 
++------------+-----------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -619,13 +749,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:25 . Memory (MB): peak = 758.398 ; gain = 501.422
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:28 . Memory (MB): peak = 795.246 ; gain = 538.348
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:26 . Memory (MB): peak = 765.973 ; gain = 508.996
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:28 . Memory (MB): peak = 805.840 ; gain = 548.941
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -637,7 +767,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:00:26 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:28 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -663,7 +793,7 @@ INFO: [Synth 8-5365] Flop mouse/Inst_Ps2Interface/ps2_data_h_reg is being invert
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished IO Insertion : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -676,7 +806,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -688,25 +818,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -719,66 +849,68 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+-------+------+
-|      |Cell   |Count |
-+------+-------+------+
-|1     |BUFG   |     2|
-|2     |CARRY4 |    69|
-|3     |LUT1   |    38|
-|4     |LUT2   |   187|
-|5     |LUT3   |   150|
-|6     |LUT4   |   111|
-|7     |LUT5   |   134|
-|8     |LUT6   |   215|
-|9     |MUXF7  |     1|
-|10    |FDCE   |    13|
-|11    |FDPE   |    13|
-|12    |FDRE   |   376|
-|13    |FDRE_1 |    31|
-|14    |FDSE_1 |     1|
-|15    |LDC    |    13|
-|16    |IBUF   |     2|
-|17    |IOBUF  |     2|
-|18    |OBUF   |     7|
-|19    |OBUFT  |    13|
-+------+-------+------+
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BUFG    |     3|
+|2     |CARRY4  |    81|
+|3     |DSP48E1 |     1|
+|4     |LUT1    |    36|
+|5     |LUT2    |   220|
+|6     |LUT3    |   140|
+|7     |LUT4    |   126|
+|8     |LUT5    |   109|
+|9     |LUT6    |   234|
+|10    |MUXF7   |     1|
+|11    |FDE_1   |    32|
+|12    |FDPE    |    13|
+|13    |FDRE    |   418|
+|14    |LDC     |    13|
+|15    |IBUF    |     2|
+|16    |IOBUF   |     2|
+|17    |OBUF    |    21|
+|18    |OBUFT   |    10|
++------+--------+------+
 
 Report Instance Areas: 
-+------+----------------------+---------------+------+
-|      |Instance              |Module         |Cells |
-+------+----------------------+---------------+------+
-|1     |top                   |               |  1378|
-|2     |  click               |click_detector |    75|
-|3     |  clk_divider6p25m    |clk_divider    |    63|
-|4     |  display             |display_pixels |    78|
-|5     |  mouse               |MouseCtl       |   697|
-|6     |    Inst_Ps2Interface |Ps2Interface   |   279|
-|7     |  oled_one            |Oled_Display   |   437|
-+------+----------------------+---------------+------+
++------+----------------------+-----------------+------+
+|      |Instance              |Module           |Cells |
++------+----------------------+-----------------+------+
+|1     |top                   |                 |  1462|
+|2     |  clk_divider6p25m    |clock_divider    |    63|
+|3     |  mouse               |MouseCtl         |   611|
+|4     |    Inst_Ps2Interface |Ps2Interface     |   278|
+|5     |  oled_one            |Oled_Display     |   420|
+|6     |  team                |team_integration |   329|
+|7     |    click             |click_detector   |    77|
+|8     |    clk_divider10k    |clock_divider_0  |    53|
+|9     |    display           |display_pixels   |    76|
+|10    |    nolabel_line51    |display_segment  |     9|
+|11    |    sound             |play_audio       |   114|
++------+----------------------+-----------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 43 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:20 . Memory (MB): peak = 785.133 ; gain = 182.301
-Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:27 . Memory (MB): peak = 785.133 ; gain = 528.156
+Synthesis finished with 0 errors, 0 critical warnings and 82 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:23 . Memory (MB): peak = 837.449 ; gain = 233.363
+Synthesis Optimization Complete : Time (s): cpu = 00:00:15 ; elapsed = 00:00:29 . Memory (MB): peak = 837.449 ; gain = 580.551
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 119 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 132 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 47 instances were transformed.
-  FDRE_1 => FDRE (inverted pins: C): 31 instances
-  FDSE_1 => FDSE (inverted pins: C): 1 instances
+  FDE_1 => FDRE (inverted pins: C): 32 instances
   IOBUF => IOBUF (IBUF, OBUFT): 2 instances
   LDC => LDCE: 13 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-137 Infos, 87 Warnings, 0 Critical Warnings and 0 Errors encountered.
+161 Infos, 120 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:29 . Memory (MB): peak = 785.133 ; gain = 541.035
+synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:32 . Memory (MB): peak = 837.449 ; gain = 593.242
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.runs/synth_1/Top_Student.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Top_Student_utilization_synth.rpt -pb Top_Student_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 785.133 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sat Mar 18 15:57:41 2023...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 837.449 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sun Mar 19 00:46:35 2023...
