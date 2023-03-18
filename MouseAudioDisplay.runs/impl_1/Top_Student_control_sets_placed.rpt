@@ -1,0 +1,128 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
+| Date         : Sat Mar 18 15:58:15 2023
+| Host         : DESKTOP-934K24B running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file Top_Student_control_sets_placed.rpt
+| Design       : Top_Student
+| Device       : xc7a35t
+----------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    60 |
+| Unused register locations in slices containing registers |   274 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      2 |           40 |
+|      8 |            1 |
+|     12 |            1 |
+|     14 |            1 |
+|    16+ |           17 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             208 |           35 |
+| No           | No                    | Yes                    |              52 |           26 |
+| No           | Yes                   | No                     |             314 |           56 |
+| Yes          | No                    | No                     |             144 |           21 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             176 |           22 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-------------------------------------+------------------------------------------------------+------------------------------------------------------+------------------+----------------+
+|             Clock Signal            |                     Enable Signal                    |                   Set/Reset Signal                   | Slice Load Count | Bel Load Count |
++-------------------------------------+------------------------------------------------------+------------------------------------------------------+------------------+----------------+
+|  click/segments_reg[8]_LDC_i_1_n_0  |                                                      | click/segments_reg[8]_LDC_i_2_n_0                    |                1 |              2 |
+|  click/segments_reg[11]_LDC_i_1_n_0 |                                                      | click/segments_reg[11]_LDC_i_2_n_0                   |                1 |              2 |
+|  click/segments_reg[12]_LDC_i_1_n_0 |                                                      | click/segments_reg[12]_LDC_i_2_n_0                   |                1 |              2 |
+|  click/segments_reg[9]_LDC_i_1_n_0  |                                                      | click/segments_reg[9]_LDC_i_2_n_0                    |                1 |              2 |
+| ~clk6p25m_BUFG                      |                                                      |                                                      |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[4]_P_0                            |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[3]_P                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[5]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[6]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[10]_C                             |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[1]_P_0                            |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[2]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[0]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[2]_P_1                            |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[4]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[7]_P                              |                1 |              2 |
+|  mouse/segments_reg[5]_P_0          |                                                      | mouse/segments_reg[5]_C                              |                1 |              2 |
+|  mouse/segments_reg[6]_P            |                                                      | mouse/segments_reg[6]_C                              |                1 |              2 |
+|  mouse/segments_reg[0]_P            |                                                      | mouse/segments_reg[0]_C                              |                1 |              2 |
+|  mouse/segments_reg[4]_P_0          |                                                      | mouse/segments_reg[4]_C                              |                1 |              2 |
+|  mouse/segments_reg[3]_P            |                                                      | mouse/segments_reg[3]_C                              |                1 |              2 |
+|  mouse/segments_reg[1]_P_0          |                                                      | mouse/segments_reg[1]_C                              |                1 |              2 |
+|  mouse/segments_reg[2]_P_1          |                                                      | mouse/segments_reg[2]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[11]_LDC_i_2_n_0                   |                1 |              2 |
+|  mouse/segments_reg[7]_P            |                                                      | mouse/segments_reg[7]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[8]_LDC_i_1_n_0                    |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[8]_LDC_i_2_n_0                    |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[11]_LDC_i_1_n_0                   |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[12]_LDC_i_2_n_0                   |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[12]_LDC_i_1_n_0                   |                1 |              2 |
+|  mouse/segments_reg[10]_P_1         |                                                      | mouse/segments_reg[10]_C                             |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[9]_LDC_i_2_n_0                    |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | click/segments_reg[9]_LDC_i_1_n_0                    |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[1]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[3]_C                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[5]_P_0                            |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[10]_P_1                           |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[6]_P                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[0]_P                              |                1 |              2 |
+|  mouse/mouse_r                      |                                                      | mouse/segments_reg[7]_C                              |                1 |              2 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/shift_frame                  | mouse/Inst_Ps2Interface/reset_bit_count              |                1 |              8 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/right_down_reg               |                                                      |                3 |             12 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/delay_63clk_count[6]_i_2_n_0 | mouse/Inst_Ps2Interface/delay_63clk_count[6]_i_1_n_0 |                2 |             14 |
+|  clk_IBUF_BUFG                      | mouse/write_data                                     |                                                      |                2 |             16 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/load_rx_data                 |                                                      |                2 |             16 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/y_inc_reg[0]                 |                                                      |                2 |             16 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/x_inc_reg[0]                 |                                                      |                2 |             16 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/frame[9]_i_1_n_0             |                                                      |                2 |             20 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/delay_20us_count[10]_i_2_n_0 | mouse/Inst_Ps2Interface/delay_20us_count[10]_i_1_n_0 |                3 |             22 |
+|  clk_IBUF_BUFG                      | mouse/y_new_reg_n_0                                  |                                                      |                4 |             24 |
+|  clk_IBUF_BUFG                      | mouse/x_new_reg_n_0                                  |                                                      |                4 |             24 |
+|  clk_IBUF_BUFG                      | mouse/Inst_Ps2Interface/delay_100us_count[0]_i_2_n_0 | mouse/Inst_Ps2Interface/clear                        |                4 |             28 |
+| ~clk6p25m_BUFG                      |                                                      | reset_display_button_IBUF                            |                4 |             34 |
+| ~clk6p25m_BUFG                      | oled_one/delay[0]_i_1_n_0                            | reset_display_button_IBUF                            |                5 |             40 |
+|  clk_IBUF_BUFG                      |                                                      | mouse/reset_timeout_cnt_reg_n_0                      |                5 |             48 |
+|  clk_IBUF_BUFG                      |                                                      | mouse/reset_periodic_check_cnt__0                    |                6 |             52 |
+|  clk_IBUF_BUFG                      |                                                      | clk_divider6p25m/clear                               |                8 |             64 |
+| ~clk6p25m_BUFG                      | oled_one/FSM_onehot_state[31]_i_1__0_n_0             | reset_display_button_IBUF                            |                7 |             64 |
+| ~clk6p25m_BUFG                      |                                                      | oled_one/spi_word[39]_i_1_n_0                        |               20 |             90 |
+|  clk_IBUF_BUFG                      |                                                      |                                                      |               34 |            206 |
++-------------------------------------+------------------------------------------------------+------------------------------------------------------+------------------+----------------+
+
+

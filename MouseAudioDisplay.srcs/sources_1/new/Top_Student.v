@@ -47,7 +47,7 @@ endmodule
 
 
 module Top_Student (
-    input clk, reset_display_button
+    input clk, reset_display_button,
     input [10:0] sw,
     output led15,
     output cs, sdin, sclk, d_cn, resn, vccen, pmoden,
@@ -97,46 +97,46 @@ module Top_Student (
     
 endmodule
 
-module display_segment(
-    input clk,
-    input [3:0] number, // Recognised number
-    input [3:0] volume, // Audio input task
-    output [3:0] an, output [6:0] seg, output dp
-);  
+//module display_segment(
+//    input clk,
+//    input [3:0] number, // Recognised number
+//    input [3:0] volume, // Audio input task
+//    output [3:0] an, output [6:0] seg, output dp
+//);  
 
-    parameter NONE = 7'b1111111;
-    parameter ZERO = 7'b1000000;
-    parameter ONE = 7'b1111001;
-    parameter TWO = 7'b0100100;
-    parameter THREE = 7'b0110000;
-    parameter FOUR = 7'b0011001;
-    parameter FIVE = 7'b0010010;
-    parameter SIX = 7'b0000010;
-    parameter SEVEN = 7'b1111000;
-    parameter EIGHT = 7'b1111111;
-    parameter NINE = 7'b0010000;
+//    parameter NONE = 7'b1111111;
+//    parameter ZERO = 7'b1000000;
+//    parameter ONE = 7'b1111001;
+//    parameter TWO = 7'b0100100;
+//    parameter THREE = 7'b0110000;
+//    parameter FOUR = 7'b0011001;
+//    parameter FIVE = 7'b0010010;
+//    parameter SIX = 7'b0000010;
+//    parameter SEVEN = 7'b1111000;
+//    parameter EIGHT = 7'b1111111;
+//    parameter NINE = 7'b0010000;
 
-    wire [6:0] nums [8:0]; 
-    assign nums = { NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO, ONE };
+//    wire [6:0] nums [8:0]; 
+//    assign nums = { NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO, ONE };
 
-    reg [6:0] display [3:0] = { NONE, NONE, NONE, NONE };
-    reg [1:0] index = 2'b0;
+//    reg [6:0] display [3:0] = { NONE, NONE, NONE, NONE };
+//    reg [1:0] index = 2'b0;
 
-    assign an = ~(1'b1 << index);
-    assign seg = display[index];
-    assign dp = number != 10 && index == 2;
+//    assign an = ~(1'b1 << index);
+//    assign seg = display[index];
+//    assign dp = number != 10 && index == 2;
 
-    always @ (number, volume) begin
-        if (number == 10) display[3:2] <= { NONE, NONE };
-        else if (number == 9) display[3:2] <= { ONE, ZERO };
-        else display[3:2] <= { ZERO, nums[number] };
-    end
+//    always @ (number, volume) begin
+//        if (number == 10) display[3:2] <= { NONE, NONE };
+//        else if (number == 9) display[3:2] <= { ONE, ZERO };
+//        else display[3:2] <= { ZERO, nums[number] };
+//    end
 
-    always @ (posedge clk) begin
-        index <= index + 1;
-    end
+//    always @ (posedge clk) begin
+//        index <= index + 1;
+//    end
 
-endmodule
+//endmodule
 
 module number_decoder(
     input [12:0] shown_segments,
