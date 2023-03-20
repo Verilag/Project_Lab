@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="38" Path="C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.xpr">
+<Project Version="7" Minor="38" Path="D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="fad9f2eea5774d6091130b4bf65ba538"/>

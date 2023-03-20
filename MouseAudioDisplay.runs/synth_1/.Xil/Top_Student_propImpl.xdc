@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:{C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc} rfile:../../../MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:{D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc} rfile:../../../MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:7 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN W5 [get_ports clk]
 set_property src_info {type:XDC file:1 line:42 export:INPUT save:INPUT read:READ} [current_design]

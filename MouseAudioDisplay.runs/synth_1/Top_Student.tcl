@@ -17,32 +17,31 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.cache/wt} [current_project]
-set_property parent.project_path {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.xpr} [current_project]
+set_property webtalk.parent_dir {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.cache/wt} [current_project]
+set_property parent.project_path {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.xpr} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo {c:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.cache/ip} [current_project]
+set_property ip_output_repo {d:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.cache/ip} [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Oled_Display.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/audio.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/clock_divider.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/segment.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Oled_Display.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/audio.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/clock_divider.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/convert.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/display.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/mouse.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/segment.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/team_integration.v}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/new/Top_Student.v}
 }
 read_vhdl -library xil_defaultlib {
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Mouse_Control.vhd}
-  {C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Ps2Interface.vhd}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Mouse_Control.vhd}
+  {D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/sources_1/imports/Desktop/Ps2Interface.vhd}
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -52,8 +51,8 @@ read_vhdl -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/Tong Zheng Hong/Documents/NUS/EE2026/EE2026 Team Integration/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc}}]
+read_xdc {{D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc}}
+set_property used_in_implementation false [get_files {{D:/MC/ee2026/ee2026 team project/Project_Lab/MouseAudioDisplay.srcs/constrs_1/new/Basys3_Master.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 0
 close [open __synthesis_is_running__ w]
