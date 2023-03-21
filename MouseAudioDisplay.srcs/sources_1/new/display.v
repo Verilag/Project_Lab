@@ -25,7 +25,6 @@ module display_pixels(
     output reg [15:0] color_chooser
 );
     
-    parameter cursor_color = 16'b11111_000000_00000;
     parameter green_color = 16'b00000_111111_00000;
     parameter outline_color = 16'b11111_111111_11111;
     parameter white_color = 16'b11111_111111_11111;
@@ -37,15 +36,23 @@ module display_pixels(
     
     wire green_border, outline;
     assign green_border = (col == 57 && row < 58) || (row == 57 && col < 58);
-    assign outline = ((row > 5 && row<=52) && (col == 17 || col == 22 || col == 38 || col == 43 )) || 
+    assign outline = ((row > 5 && row <= 52) && (col == 17 || col == 22 || col == 38 || col == 43 )) || 
         ((col >= 17 && col <= 43) && (row == 5 || row == 10 || row == 26 || row == 31 || row == 47 || row == 52));
     
     // Get the segment that the current pixel index is in
     wire [12:0] index_within; // Get one hot encoding of pixel index in which segment
     coord_to_segment get_seg(.x(col), .y(row), .within(index_within));
     
+    wire within_cursor; wire [15:0] cursor_color;
+    check_draw_cursor check_cursor(
+        .mouse_x(mouse_x), .mouse_y(mouse_y),
+        .pixel_index(pixel_index),
+        .within_cursor(within_cursor),
+        .color_chooser(cursor_color)
+    );
+    
     always @ (pixel_index) begin
-        if (mouse_x == col && mouse_y == row) color_chooser <= cursor_color;
+        if (within_cursor && cursor_color != 16'b1111_11111_1111) color_chooser <= cursor_color;
         else if (green_border) color_chooser <= green_color;
         else if (outline) color_chooser <= outline_color;
         else if (shown_segments & index_within) color_chooser <= white_color;

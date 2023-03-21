@@ -21,12 +21,13 @@
 
 
 module team_integration(
-    input clk, mouse_l, mouse_r, sw15,
-    input [11:0] mouse_x, mouse_y,
+    input clk_100mhz, mouse_l, mouse_r, sw15, J_MIC_Pin3,
+    input [11:0] mouse_x, mouse_y, audio_in,
     input [12:0] pixel_index,
-    output led14, led15,
+    output [15:0] led,
     output [15:0] colour_chooser,
-    output [3:0] an, output [6:0] seg, output dp
+    output [3:0] an, output [6:0] seg, output dp,
+    output [11:0] audio_out
 );
     
     // Limit mouse coordinates to screen dimensions (64 x 96 pixels)
@@ -36,7 +37,7 @@ module team_integration(
     // Detect mouse click and update segment status
     wire [12:0] shown_segments;
     click_detector click(.mouse_x(limit_x), .mouse_y(limit_y), .left_click(mouse_l), .right_click(mouse_r), 
-        .segments(shown_segments), .led15(led15));
+        .segments(shown_segments), .led15(led[15]));
     
     // Show filled segments, outline and mouse cursor 
     display_pixels display(.mouse_x(limit_x), .mouse_y(limit_y), .shown_segments(shown_segments), 
@@ -44,14 +45,17 @@ module team_integration(
 
     wire [3:0] number;
     number_decoder decode(.shown_segments(shown_segments), .number(number));
-    assign led15 = sw15 ? number != 10 : 0;
+    assign led[15] = sw15 ? number != 10 : 0;
+    
+    wire [3:0] volume;
+    audio_input_task mic(.clk_100mhz(clk_100mhz), .audio_in(audio_in), .volume_state(volume));
+    assign led[8:0] = (2**volume) - 1;
     
     wire clk10k; parameter prescaler_10k = 30'd4_999; // 10kHz
-    clock_divider clk_divider10k(.clk(clk), .prescaler(prescaler_10k), .clk_output(clk10k));
-    display_segment(.clk(clk10k), .number(number), .volume(0), .an(an), .seg(seg), .dp(dp));
+    clock_divider clk_divider10k(.clk(clk_100mhz), .prescaler(prescaler_10k), .clk_output(clk10k));
+    display_segment(.clk(clk10k), .number(number), .volume(volume), .an(an), .seg(seg), .dp(dp));
     
-    wire beep;
-    play_audio sound(.clk(clk10k), .number(number), .beep(beep));
-    assign led14 = beep;
+    play_audio sound(.clk_100mhz(clk_100mhz), .number(number), .audio_out(audio_out));
+    assign led[14] = audio_out > 0; 
      
 endmodule
