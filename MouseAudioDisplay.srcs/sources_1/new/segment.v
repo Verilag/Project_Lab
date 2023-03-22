@@ -21,7 +21,7 @@
 
 
 module display_segment(
-    input clk,
+    input clk10khz,
     input [3:0] number, // Recognised number
     input [3:0] volume, // Audio input task
     output [3:0] an, output [6:0] seg, output dp
@@ -70,7 +70,7 @@ module display_segment(
         end
     end
 
-    always @ (posedge clk) begin
+    always @ (posedge clk10khz) begin
         index <= index + 1;
     end
 

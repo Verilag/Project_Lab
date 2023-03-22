@@ -12,7 +12,7 @@
 
 
 module Top_Student (
-    input clk_100M, J_MIC_Pin3,
+    input clk_100Mhz, J_MIC_Pin3,
     input [15:0] sw, 
     input btnC, btnU, btnL, btnR, btnD,
     output [15:0] led,
@@ -28,7 +28,7 @@ module Top_Student (
     wire [11:0] audio_in, audio_out;
     
     peripherals hardware(
-        .clk_100M(clk_100M), .J_MIC_Pin3(J_MIC_Pin3), .JXADC(JXADC),
+        .clk_100Mhz(clk_100Mhz), .J_MIC_Pin3(J_MIC_Pin3), .JXADC(JXADC),
         .cs(cs), .sdin(sdin), .sclk(sclk), .d_cn(d_cn), .resn(resn), .vccen(vccen), .pmoden(pmoden),
         .J_MIC_Pin1(J_MIC_Pin1), .J_MIC_Pin4(J_MIC_Pin4),
         .PS2Clk(PS2Clk), .PS2Data(PS2Data),
@@ -39,7 +39,7 @@ module Top_Student (
     );
     
     team_integration team(
-        .clk_100M(clk_100M), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw15(sw[15]),
+        .clk_100Mhz(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw15(sw[15]),
         .mouse_x(mouse_x), .mouse_y(mouse_y), .audio_in(audio_in),
         
         .pixel_index(pixel_index), .colour_chooser(colour_chooser),

@@ -67,27 +67,27 @@ module select_volume(
 endmodule
 
 module audio_input_task(
-    input clk_100M,
+    input clk_100Mhz,
     input [11:0] audio_in, 
     output [3:0] volume_state
 );
 
-    wire clk10_signal, clk1k_signal;
-    clock_gen_hz clk10(.clk_100M(clk_100M), .freq(10), .clk(clk10_signal));
-    clock_gen_hz clk1k(.clk_100M(clk_100M), .freq(1_000), .clk(clk1k_signal));
+    wire clk10hz_signal, clk1khz_signal;
+    clock_gen_hz clk10hz(.clk_100Mhz(clk_100Mhz), .freq(10), .clk(clk10hz_signal));
+    clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1_000), .clk(clk1khz_signal));
     
     reg enable = 1; wire [11:0] peak;
     parameter max_sample = 31'd128;
     find_peak update(
         .enable(enable),
-        .sampling_clock(clk1k_signal),
+        .sampling_clock(clk1khz_signal),
         .sample(audio_in),
         .max_sample(max_sample),
         .peak(peak)
     );
     
     select_volume update_volume_state(
-        .slow_clock(clk10_signal),
+        .slow_clock(clk10hz_signal),
         .data(peak),
         .volume_state(volume_state)
     );
@@ -96,7 +96,7 @@ endmodule
 
 
 module play_audio(
-    input clk_100M, // 100MHz clock
+    input clk_100Mhz, // 100MHz clock
     input [3:0] number,
     output reg [11:0] audio_out = 0
 );
@@ -105,7 +105,7 @@ module play_audio(
     reg [3:0] prev_num = 0;
     reg [31:0] counter = 0;
     
-    always @ (posedge clk_100M) begin
+    always @ (posedge clk_100Mhz) begin
         if (number != prev_num) begin
             counter = 0; // Start counting from 0
             beep = number != 10; // Valid new number detected
@@ -122,10 +122,10 @@ module play_audio(
         prev_num = number;
     end
     
-    wire clk190_signal;
-    clock_gen_hz clk190(.clk_100M(clk_100M), .freq(190), .clk(clk190_signal));
+    wire clk190hz_signal;
+    clock_gen_hz clk190hz(.clk_100Mhz(clk_100Mhz), .freq(190), .clk(clk190hz_signal));
     
-    always @ (posedge clk190_signal) begin
+    always @ (posedge clk190hz_signal) begin
         if (beep) audio_out <= audio_out == 0
              ? 12'b1000_0000_0000 : 0;
         else audio_out <= 0;
