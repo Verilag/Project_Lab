@@ -14,6 +14,7 @@
 module Top_Student (
     input clk_100M, J_MIC_Pin3,
     input [15:0] sw, 
+    input btnC, btnU, btnL, btnR, btnD,
     output [15:0] led,
     output cs, sdin, sclk, d_cn, resn, vccen, pmoden,
     output [3:0] an, output [6:0] seg, output dp,
