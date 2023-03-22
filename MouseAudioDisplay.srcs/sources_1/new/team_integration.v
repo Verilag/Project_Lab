@@ -21,11 +21,10 @@
 
 
 module team_integration(
-    input clk_100mhz, mouse_l, mouse_r, sw15, J_MIC_Pin3,
+    input clk_100M, mouse_l, mouse_r, sw15,
     input [11:0] mouse_x, mouse_y, audio_in,
     input [12:0] pixel_index,
-    output [15:0] led,
-    output [15:0] colour_chooser,
+    output [15:0] led, colour_chooser,
     output [3:0] an, output [6:0] seg, output dp,
     output [11:0] audio_out
 );
@@ -48,14 +47,14 @@ module team_integration(
     assign led[15] = sw15 ? number != 10 : 0;
     
     wire [3:0] volume;
-    audio_input_task mic(.clk_100mhz(clk_100mhz), .audio_in(audio_in), .volume_state(volume));
+    audio_input_task mic(.clk_100M(clk_100M), .audio_in(audio_in), .volume_state(volume));
     assign led[8:0] = (2**volume) - 1;
     
-    wire clk10k; parameter prescaler_10k = 30'd4_999; // 10kHz
-    clock_divider clk_divider10k(.clk(clk_100mhz), .prescaler(prescaler_10k), .clk_output(clk10k));
-    display_segment(.clk(clk10k), .number(number), .volume(volume), .an(an), .seg(seg), .dp(dp));
+    wire clk10k_signal; 
+    clock_gen_hz clk10k(.clk_100M(clk_100M), .freq(10_000), .clk(clk10k_signal));
+    display_segment(.clk(clk10k_signal), .number(number), .volume(volume), .an(an), .seg(seg), .dp(dp));
     
-    play_audio sound(.clk_100mhz(clk_100mhz), .number(number), .audio_out(audio_out));
+    play_audio sound(.clk_100M(clk_100M), .number(number), .audio_out(audio_out));
     assign led[14] = audio_out > 0; 
      
 endmodule

@@ -19,17 +19,17 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// Creates clock signal with given frequency 
+// Creates clock signal with given period duration
 // Must use 100Mhz base clock signal!
-// Minimum: 1Hz | Maximum: 100Mhz
-module clock_gen_hz(
+// Minimum: 1 ms period
+module clock_gen_ms(
     input clk_100M,
-    input [31:0] freq,
+    input [31:0] ms,
     output reg clk = 0
 );
     
-    reg [31:0] count = 0; 
-    wire [31:0] m = (100_000_000 / (2*freq)) - 1;
+    reg [31:0] count = 0;
+    wire [31:0] m = (ms == 1) ? 49_999 : (100_000 * (ms/2)) - 1;
     
     always @ (posedge clk_100M) begin
         count <= (count == m) ? 0 : count + 1; 

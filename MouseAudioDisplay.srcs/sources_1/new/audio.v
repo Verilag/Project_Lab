@@ -67,14 +67,14 @@ module select_volume(
 endmodule
 
 module audio_input_task(
-    input clk_100mhz,
+    input clk_100M,
     input [11:0] audio_in, 
     output [3:0] volume_state
 );
 
     wire clk10_signal, clk1k_signal;
-    clock_gen_hz clk10hz(.clock_10ns(clk_100mhz), .freq(10), .clk(clk10_signal));
-    clock_gen_hz clk1khz(.clock_10ns(clk_100mhz), .freq(1_000), .clk(clk1k_signal));
+    clock_gen_hz clk10(.clk_100M(clk_100M), .freq(10), .clk(clk10_signal));
+    clock_gen_hz clk1k(.clk_100M(clk_100M), .freq(1_000), .clk(clk1k_signal));
     
     reg enable = 1; wire [11:0] peak;
     parameter max_sample = 31'd128;
@@ -96,7 +96,7 @@ endmodule
 
 
 module play_audio(
-    input clk_100mhz, // 100MHz clock
+    input clk_100M, // 100MHz clock
     input [3:0] number,
     output reg [11:0] audio_out = 0
 );
@@ -105,7 +105,7 @@ module play_audio(
     reg [3:0] prev_num = 0;
     reg [31:0] counter = 0;
     
-    always @ (posedge clk_100mhz) begin
+    always @ (posedge clk_100M) begin
         if (number != prev_num) begin
             counter = 0; // Start counting from 0
             beep = number != 10; // Valid new number detected
@@ -123,7 +123,7 @@ module play_audio(
     end
     
     wire clk190_signal;
-    clock_gen_hz clk190Hz(.clock_10ns(clk_100mhz), .freq (190), .clk (clk190_signal));
+    clock_gen_hz clk190(.clk_100M(clk_100M), .freq(190), .clk(clk190_signal));
     
     always @ (posedge clk190_signal) begin
         if (beep) audio_out <= audio_out == 0
