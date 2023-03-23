@@ -52,7 +52,7 @@ module display_pixels(
     );
     
     always @ (pixel_index) begin
-        if (within_cursor && cursor_color != 16'b1111_11111_1111) color_chooser <= cursor_color;
+        if (within_cursor) color_chooser <= cursor_color;
         else if (green_border) color_chooser <= green_color;
         else if (outline) color_chooser <= outline_color;
         else if (shown_segments & index_within) color_chooser <= white_color;
