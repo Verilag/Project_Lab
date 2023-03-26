@@ -1,6 +1,7 @@
 *.log
 *.jou
 *.str
+*.dmp
 
 MouseAudioDisplay.cache/*
 MouseAudioDisplay.runs/*

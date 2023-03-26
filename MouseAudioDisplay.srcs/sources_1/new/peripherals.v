@@ -48,7 +48,7 @@ module peripherals(
     clock_gen_hz clk20k(.clk_100Mhz(clk_100Mhz), .freq (20_000), .clk (clk20khz_signal));
     Audio_Input mic(
         .CLK(clk_100Mhz),               // 100MHz clock
-        .cs(clk20k_signal),           // sampling clock, 20kHz
+        .cs(clk20khz_signal),           // sampling clock, 20kHz
         .MISO(J_MIC_Pin3),            // J_MIC3_Pin3, serial mic input
         .clk_samp(J_MIC_Pin1),        // J_MIC3_Pin1
         .sclk(J_MIC_Pin4),            // J_MIC3_Pin4, MIC3 serial clock
