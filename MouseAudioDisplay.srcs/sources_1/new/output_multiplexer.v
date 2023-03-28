@@ -102,7 +102,7 @@ endmodule
 module seg_multiplexer(
     input clk1khz,
     input [3:0] state,
-    input [27:0] team_basic_seg,
+    input [15:0] team_basic_nums,
     input [3:0] team_basic_decimal,
     output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 0
 );
@@ -112,6 +112,9 @@ module seg_multiplexer(
     always @ (posedge clk1khz) begin
         index <= index + 1;
     end
+    
+    wire [27:0] team_basic_seg;
+    number_to_segment num_seg_1(team_basic_nums, team_basic_seg);
     
     always @ (index) begin
         case (state)
@@ -132,9 +135,15 @@ module seg_multiplexer(
 endmodule
 
 module number_to_segment(
-    input [3:0] number,
-    output reg [6:0] segment
+    input [15:0] numbers,
+    output [27:0] segments
 );
+    
+    wire [3:0] first, second, third, fourth;
+    assign first = numbers[15:12];
+    assign second = numbers[11:8];
+    assign third = numbers[7:4];
+    assign fourth = numbers[3:0];
 
     parameter NONE = 7'b1111111;
     parameter ZERO = 7'b1000000;
@@ -148,25 +157,13 @@ module number_to_segment(
     parameter EIGHT = 7'b0000000;
     parameter NINE = 7'b0010000;
     
-    always @ (number) begin
-        case (number)
-            0: segment = ZERO;
-            1: segment = ONE;
-            2: segment = TWO;
-            3: segment = THREE;
-            4: segment = FOUR;
-            5: segment = FIVE;
-            6: segment = SIX;
-            7: segment = SEVEN;
-            8: segment = EIGHT;
-            9: segment = NINE;
-//            10: segment = TEN;
-//            11: segment = 
-//            12: segment = 
-//            13: segment = 
-//            14: segment = 
-            15: segment = NONE;
-        endcase
-    end
-
+    wire [6:0] nums [15:0]; // 10 numbers of 7 bits
+    assign nums[0] = ZERO; assign nums[1] = ONE; assign nums[2] = TWO;
+    assign nums[3] = THREE; assign nums[4] = FOUR; assign nums[5] = FIVE;
+    assign nums[6] = SIX; assign nums[7] = SEVEN; assign nums[8] = EIGHT;
+    assign nums[9] = NINE;
+    assign nums[15] = NONE;
+    
+    assign segments = { nums[first], nums[second], nums[third], nums[fourth] }; 
+        
 endmodule

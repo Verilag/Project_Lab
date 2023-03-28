@@ -49,13 +49,13 @@ module Top_Student (
         .hover_entry(hover_menu_item), .state(state));
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
-    wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [27:0] team_basic_seg;
+    wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
     team_integration team(
         .clk_100Mhz(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw15(sw[15]),
         .mouse_x(mouse_x), .mouse_y(mouse_y), .audio_in(audio_in), .pixel_index(pixel_index), 
         
         .colour_chooser(team_basic_color), .audio_out(team_basic_speaker),
-        .led(team_basic_led), .seg(team_basic_seg), .dp(team_basic_dp)
+        .led(team_basic_led), .seg_nums(team_basic_nums), .dp(team_basic_dp)
     );
     
     display_multiplexer oled_display(.state(state),
@@ -69,7 +69,7 @@ module Top_Student (
     wire clk1khz_signal;
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
     seg_multiplexer segment(.clk1khz(clk1khz_signal), .state(state),
-        .team_basic_seg(team_basic_seg), .team_basic_decimal(team_basic_dp),
+        .team_basic_nums(team_basic_nums), .team_basic_decimal(team_basic_dp),
         .an(an), .seg(seg), .dp(dp));
     
 endmodule

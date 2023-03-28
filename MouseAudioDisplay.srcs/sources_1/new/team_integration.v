@@ -25,7 +25,7 @@ module team_integration(
     input [11:0] mouse_x, mouse_y, audio_in,
     input [12:0] pixel_index,
     output [15:0] led, colour_chooser,
-    output [27:0] seg, output [3:0] dp,
+    output [15:0] seg_nums, output [3:0] dp,
     output [11:0] audio_out
 );
         
@@ -46,7 +46,7 @@ module team_integration(
     audio_input_task mic(.clk_100Mhz(clk_100Mhz), .audio_in(audio_in), .volume_state(volume));
     assign led[8:0] = (2**volume) - 1;
     
-    team_integration_segment(.number(number), .volume(volume), .seg(seg));
+    team_integration_segment(.number(number), .volume(volume), .seg_nums(seg_nums));
     assign dp = (number != 10) ? 4'b0111 : 4'b1111; // Show decimal point if valid number selected
     
     play_audio sound(.clk_100Mhz(clk_100Mhz), .number(number), .audio_out(audio_out));
