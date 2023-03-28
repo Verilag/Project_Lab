@@ -72,3 +72,21 @@ module peripherals(
     );
     
 endmodule
+
+// Limit mouse coordinates to screen dimensions (64 x 96 pixels)
+module limit_mouse_coor(
+    input [11:0] x, y,
+    output reg [6:0] limit_x, limit_y
+);
+    parameter screen_height = 7'd62;
+    parameter screen_width = 7'd94;
+    
+    always @ (x,y) begin
+        if (x >= screen_width-1) limit_x = screen_width-1;
+        else limit_x = x;
+        
+        if (y >= screen_height-1) limit_y = screen_height-1;
+        else limit_y = y;
+    end
+    
+endmodule
