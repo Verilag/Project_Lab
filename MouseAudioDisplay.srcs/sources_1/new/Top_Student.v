@@ -38,6 +38,16 @@ module Top_Student (
         .audio_in(audio_in), .audio_out(audio_out)
     );
     
+    wire [3:0] hover_menu_item; wire [15:0] menu_color;
+    main_menu menu_app(.clk_100Mhz(clk_100Mhz), .btnC(btnC), .btnU(btnU), .btnD(btnD),
+        .mouse_x(mouse_x), .mouse_y(mouse_y), .pixel_index(pixel_index),
+        .hover_menu_item(hover_menu_item), .color_chooser(menu_color));
+        
+    wire [3:0] state; wire clk1Mhz_signal;
+    clock_gen_hz clk1Mhz(.clk_100Mhz(clk_100Mhz), .freq(1_000_000), .clk(clk1Mhz_signal));
+    menu_fsm(.clk1Mhz(clk1Mhz_signal), .back(btnL), .left_click(mouse_l), 
+        .hover_entry(hover_menu_item), .state(state));
+    
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [27:0] team_basic_seg;
     team_integration team(
@@ -48,17 +58,17 @@ module Top_Student (
         .led(team_basic_led), .seg(team_basic_seg), .dp(team_basic_dp)
     );
     
-    display_multiplexer oled_display(.state(TEAM_BASIC),
-        .menu_color(0), .team_basic_color(team_basic_color),
+    display_multiplexer oled_display(.state(state),
+        .menu_color(menu_color), .team_basic_color(team_basic_color),
         .color_chooser(colour_chooser));
     
-    audio_out_multiplexer speaker(.state(TEAM_BASIC), .team_basic_out(team_basic_speaker), .audio_out(audio_out));
+    audio_out_multiplexer speaker(.state(state), .team_basic_out(team_basic_speaker), .audio_out(audio_out));
     
-    led_multiplexer leds(.state(TEAM_BASIC), .team_basic_led(team_basic_led), .led(led));
+    led_multiplexer leds(.state(state), .team_basic_led(team_basic_led), .led(led));
     
     wire clk1khz_signal;
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
-    seg_multiplexer segment(.clk1khz(clk1khz_signal), .state(TEAM_BASIC),
+    seg_multiplexer segment(.clk1khz(clk1khz_signal), .state(state),
         .team_basic_seg(team_basic_seg), .team_basic_decimal(team_basic_dp),
         .an(an), .seg(seg), .dp(dp));
     
