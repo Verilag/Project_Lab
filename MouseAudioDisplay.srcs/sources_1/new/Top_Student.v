@@ -84,6 +84,19 @@ module Top_Student (
         .colour_chooser(basic_display_color)
     );
     
+    wire [15:0] paint_color;
+    wire [11:0] paint_speaker;
+    wire [15:0] paint_led;
+    
+    paint(
+        .enable(state == PAINT),
+        .clk_100M(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw0(sw[0]), .sw15(sw[15]), .btnC(btnC), .btnR(btnR), 
+        .mouse_x(mouse_x), .mouse_y(mouse_y),
+        .pixel_index(pixel_index),
+        .led(paint_led),
+        .colour_chooser(paint_color),
+        .audio_out(paint_speaker)
+    );    
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
@@ -103,18 +116,21 @@ module Top_Student (
     display_multiplexer oled_display(
         .state(state),
         .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), .basic_display_color(basic_display_color),
+        .paint_color(paint_color),
         .color_chooser(colour_chooser)
     );
     
     audio_out_multiplexer speaker(
         .state(state), 
-        .team_basic_out(team_basic_speaker), 
+        .team_basic_out(team_basic_speaker),
+        .paint_out(paint_speaker),
         .audio_out(audio_out)
     );
     
     led_multiplexer leds(
         .state(state), 
-        .team_basic_led(team_basic_led), 
+        .team_basic_led(team_basic_led),
+        .paint_led(paint_led),
         .led(led)
     );
     

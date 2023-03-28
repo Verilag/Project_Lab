@@ -24,12 +24,11 @@ parameter BASIC_AUDIO_OUT = 2;
 parameter BASIC_MOUSE = 3;
 parameter BASIC_DISPLAY = 4;
 parameter DYLAN = 6;
-parameter JUKEBOX = 7;
+parameter JINGYANG = 7;
 parameter PAINT = 8;
-parameter NUMPAD = 9;
+parameter ZHENGHONG = 9;
 parameter TEAM_BASIC = 11;
-parameter TEAM_CAL = 12;
-parameter TEAM_RECEIVER = 13;
+parameter TEAM_COMPLETE = 12;
 
 module menu_fsm(
     input clk1Mhz, back, left_click,
@@ -54,7 +53,7 @@ endmodule
 
 module display_multiplexer(
     input [3:0] state,
-    input [15:0] menu_color, basic_mouse_color, team_basic_color, basic_display_color,
+    input [15:0] menu_color, basic_mouse_color, team_basic_color, basic_display_color, paint_color,
     output reg [15:0] color_chooser
 );
 
@@ -64,6 +63,7 @@ module display_multiplexer(
             BASIC_MOUSE: color_chooser = basic_mouse_color;
             TEAM_BASIC: color_chooser = team_basic_color;
             BASIC_DISPLAY: color_chooser = basic_display_color;
+            PAINT: color_chooser = paint_color;
             default: color_chooser = 0;
         endcase
     end
@@ -73,13 +73,14 @@ endmodule
 
 module audio_out_multiplexer(
     input [3:0] state,
-    input [11:0] team_basic_out,
+    input [11:0] team_basic_out, paint_out,
     output reg [11:0] audio_out
 );
 
     always @ (state) begin
         case (state)
             TEAM_BASIC: audio_out = team_basic_out;
+            PAINT: audio_out = paint_out;
             default: audio_out = 0;
         endcase
     end
@@ -89,13 +90,14 @@ endmodule
 
 module led_multiplexer(
     input [3:0] state,
-    input [15:0] team_basic_led,
+    input [15:0] team_basic_led, paint_led,
     output reg [15:0] led
 );
 
     always @ (state) begin
         case (state)
             TEAM_BASIC: led = team_basic_led;
+            PAINT: led = paint_led;
             default: led = 0;
         endcase
     end
