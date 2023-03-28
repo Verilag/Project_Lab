@@ -32,7 +32,7 @@ module clock_gen_ms(
     wire [31:0] m = (ms == 1) ? 49_999 : (100_000 * (ms/2)) - 1;
     
     always @ (posedge clk_100Mhz) begin
-        count <= (count == m) ? 0 : count + 1; 
+        count <= (count >= m) ? 0 : count + 1; 
         clk <= (count == 0) ? ~clk : clk;
     end
     

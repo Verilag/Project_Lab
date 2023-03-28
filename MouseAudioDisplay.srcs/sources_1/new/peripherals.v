@@ -43,6 +43,9 @@ module peripherals(
         .xpos(mouse_x), .ypos(mouse_y), .zpos(mouse_z),
         .left(mouse_l), .middle(mouse_m), .right(mouse_r), .new_event(mouse_new_e),
         .ps2_clk(PS2Clk), .ps2_data(PS2Data));
+        
+    wire [6:0] limit_x, limit_y;
+    limit_mouse_coor limit(.x(mouse_x), .y(mouse_y), .limit_x(limit_x), .limit_y(limit_y));
     
     wire clk20khz_signal; 
     clock_gen_hz clk20k(.clk_100Mhz(clk_100Mhz), .freq (20_000), .clk (clk20khz_signal));

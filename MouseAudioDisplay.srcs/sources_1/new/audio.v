@@ -44,24 +44,25 @@ module find_peak(
 endmodule
 
 
-
 module select_volume(
-    input slow_clock,
-    input [11:0] data,
-    output reg [3:0] volume_state
+    input [11:0] peak,
+    output reg [3:0] volume_state = 0
 );
 
-    always @(posedge slow_clock) begin
-        if (data < 2064) volume_state <= 0;
-        else if (data < 2090) volume_state <= 1;
-        else if (data < 2100) volume_state <= 2;
-        else if (data < 2112) volume_state <= 3;
-        else if (data < 2150) volume_state <= 4;
-        else if (data < 2176) volume_state <= 5; 
-        else if (data < 2224) volume_state <= 6;
-        else if (data < 2304) volume_state <= 7;
-        else if (data < 2560) volume_state <= 8;
-        else volume_state <= 9;
+    parameter base = 2048;
+    parameter step = 60;
+    
+    always @ (peak) begin
+        if (peak > base + 9*step) volume_state = 9;
+        else if (peak > base + 8*step) volume_state = 8;
+        else if (peak > base + 7*step) volume_state = 7;
+        else if (peak > base + 6*step) volume_state = 6;
+        else if (peak > base + 5*step) volume_state = 5;
+        else if (peak > base + 4*step) volume_state = 4;
+        else if (peak > base + 3*step) volume_state = 3;
+        else if (peak > base + 2*step) volume_state = 2;
+        else if (peak > base + step) volume_state = 1;
+        else volume_state = 0;
     end 
     
 endmodule
@@ -72,8 +73,7 @@ module audio_input_task(
     output [3:0] volume_state
 );
 
-    wire clk10hz_signal, clk1khz_signal;
-    clock_gen_hz clk10hz(.clk_100Mhz(clk_100Mhz), .freq(10), .clk(clk10hz_signal));
+    wire clk1khz_signal;
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1_000), .clk(clk1khz_signal));
     
     reg enable = 1; wire [11:0] peak;
@@ -87,8 +87,7 @@ module audio_input_task(
     );
     
     select_volume update_volume_state(
-        .slow_clock(clk10hz_signal),
-        .data(peak),
+        .peak(peak),
         .volume_state(volume_state)
     );
     
