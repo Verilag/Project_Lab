@@ -24,11 +24,12 @@ parameter BASIC_AUDIO_OUT = 2;
 parameter BASIC_MOUSE = 3;
 parameter BASIC_DISPLAY = 4;
 parameter DYLAN = 6;
-parameter JINGYANG = 7;
-parameter MINGCHUN = 8;
-parameter ZHENGHONG = 9;
+parameter JUKEBOX = 7;
+parameter PAINT = 8;
+parameter NUMPAD = 9;
 parameter TEAM_BASIC = 11;
-parameter TEAM_COMPLETE = 12;
+parameter TEAM_CAL = 12;
+parameter TEAM_RECEIVER = 13;
 
 module menu_fsm(
     input clk1Mhz, back, left_click,
