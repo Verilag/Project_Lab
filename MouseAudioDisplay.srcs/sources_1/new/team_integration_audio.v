@@ -45,6 +45,7 @@ endmodule
 
 
 module select_volume(
+    input enable,
     input [11:0] peak,
     output reg [3:0] volume_state = 0
 );
@@ -53,23 +54,25 @@ module select_volume(
     parameter step = 60;
     
     always @ (peak) begin
-        if (peak > base + 9*step) volume_state = 9;
-        else if (peak > base + 8*step) volume_state = 8;
-        else if (peak > base + 7*step) volume_state = 7;
-        else if (peak > base + 6*step) volume_state = 6;
-        else if (peak > base + 5*step) volume_state = 5;
-        else if (peak > base + 4*step) volume_state = 4;
-        else if (peak > base + 3*step) volume_state = 3;
-        else if (peak > base + 2*step) volume_state = 2;
-        else if (peak > base + step) volume_state = 1;
-        else volume_state = 0;
+        if (enable) begin
+            if (peak > base + 9*step) volume_state = 9;
+            else if (peak > base + 8*step) volume_state = 8;
+            else if (peak > base + 7*step) volume_state = 7;
+            else if (peak > base + 6*step) volume_state = 6;
+            else if (peak > base + 5*step) volume_state = 5;
+            else if (peak > base + 4*step) volume_state = 4;
+            else if (peak > base + 3*step) volume_state = 3;
+            else if (peak > base + 2*step) volume_state = 2;
+            else if (peak > base + step) volume_state = 1;
+            else volume_state = 0;
+        end
     end 
     
 endmodule
 
 
 module audio_input_task(
-    input clk_100Mhz,
+    input enable, clk_100Mhz,
     input [11:0] audio_in, 
     output [3:0] volume_state
 );
@@ -77,7 +80,7 @@ module audio_input_task(
     wire clk1khz_signal;
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1_000), .clk(clk1khz_signal));
     
-    reg enable = 1; wire [11:0] peak;
+    wire [11:0] peak;
     parameter max_sample = 31'd128;
     find_peak update(
         .enable(enable),
@@ -88,6 +91,7 @@ module audio_input_task(
     );
     
     select_volume update_volume_state(
+        .enable(enable),
         .peak(peak),
         .volume_state(volume_state)
     );
@@ -96,7 +100,7 @@ endmodule
 
 
 module play_audio(
-    input clk_100Mhz, // 100MHz clock
+    input enable, clk_100Mhz, // 100MHz clock
     input [3:0] number,
     output reg [11:0] audio_out = 0
 );
@@ -106,29 +110,33 @@ module play_audio(
     reg [31:0] counter = 0;
     
     always @ (posedge clk_100Mhz) begin
-        if (number != prev_num && number != 10) begin
-            counter = 0; // Start counting from 0
-            beep = 1; // Valid new number detected
-        end
+        if (enable) begin
+            if (number != prev_num && number != 10) begin
+                counter = 0; // Start counting from 0
+                beep = 1; // Valid new number detected
+            end
+                
+            if (beep) counter = counter + 1; // Increment counter
             
-        if (beep) counter = counter + 1; // Increment counter
-        
-        if (counter >= 10_000_000 * (number+1)) begin 
-            // End of beep duration
-            counter = 0;
-            beep = 0;
+            if (counter >= 10_000_000 * (number+1)) begin 
+                // End of beep duration
+                counter = 0;
+                beep = 0;
+            end
+            
+            prev_num = number;
         end
-        
-        prev_num = number;
     end
     
     wire clk190hz_signal;
     clock_gen_hz clk190hz(.clk_100Mhz(clk_100Mhz), .freq(190), .clk(clk190hz_signal));
     
     always @ (posedge clk190hz_signal) begin
-        if (beep) audio_out <= audio_out == 0
-             ? 12'b1000_0000_0000 : 0;
-        else audio_out <= 0;
+        if (enable) begin
+            if (beep) audio_out <= audio_out == 0
+                 ? 12'b1000_0000_0000 : 0;
+            else audio_out <= 0;
+        end
     end
 
 endmodule

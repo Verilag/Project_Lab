@@ -21,7 +21,7 @@
 
 
 module team_integration(
-    input clk_100Mhz, mouse_l, mouse_r, sw15,
+    input enable, clk_100Mhz, mouse_l, mouse_r, sw15,
     input [11:0] mouse_x, mouse_y, audio_in,
     input [12:0] pixel_index,
     output [15:0] led, colour_chooser,
@@ -30,26 +30,32 @@ module team_integration(
 );
         
     // Detect mouse click and update segment status
-    wire [12:0] shown_segments;
-    click_detector click(.mouse_x(mouse_x), .mouse_y(mouse_y), .left_click(mouse_l), .right_click(mouse_r), 
-        .segments(shown_segments), .led15(led[15]));
+    wire [12:0] shown_segments; wire clk1khz_signal;
+    clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1_000), .clk(clk1khz_signal));
+    click_detector click(
+        .enable(enable), .clk1khz(clk1khz_signal), .mouse_x(mouse_x), .mouse_y(mouse_y), 
+        .left_click(mouse_l), .right_click(mouse_r), 
+        .segments(shown_segments), .led15(led[15])
+    );
     
     // Show filled segments, outline and mouse cursor 
-    team_integration_oled display(.mouse_x(mouse_x), .mouse_y(mouse_y), .shown_segments(shown_segments), 
-        .pixel_index(pixel_index), .color_chooser(colour_chooser));
+    team_integration_oled display(
+        .enable(enable), .mouse_x(mouse_x), .mouse_y(mouse_y), 
+        .shown_segments(shown_segments), .pixel_index(pixel_index), 
+        .color_chooser(colour_chooser)
+    );
 
-    wire [3:0] number;
-    number_decoder decode(.shown_segments(shown_segments), .number(number));
+    wire [3:0] number, volume;
+    number_decoder decode(.enable(enable), .shown_segments(shown_segments), .number(number));
     assign led[15] = sw15 ? number != 10 : 0;
     
-    wire [3:0] volume;
-    audio_input_task mic(.clk_100Mhz(clk_100Mhz), .audio_in(audio_in), .volume_state(volume));
-    assign led[8:0] = (2**volume) - 1;
-    
-    team_integration_segment(.number(number), .volume(volume), .seg_nums(seg_nums));
+    team_integration_segment(.enable(enable), .number(number), .volume(volume), .seg_nums(seg_nums));
     assign dp = (number != 10) ? 4'b0111 : 4'b1111; // Show decimal point if valid number selected
     
-    play_audio sound(.clk_100Mhz(clk_100Mhz), .number(number), .audio_out(audio_out));
+    audio_input_task mic(.enable(enable), .clk_100Mhz(clk_100Mhz), .audio_in(audio_in), .volume_state(volume));
+    assign led[8:0] = (2**volume) - 1;
+    
+    play_audio sound(.enable(enable), .clk_100Mhz(clk_100Mhz), .number(number), .audio_out(audio_out));
     assign led[14] = audio_out > 0; 
      
 endmodule
@@ -79,6 +85,7 @@ endmodule
 
 
 module number_decoder(
+    input enable,
     input [12:0] shown_segments,
     output reg [3:0] number
 );
@@ -95,19 +102,21 @@ module number_decoder(
     parameter [12:0] nine = 13'b1_1110_1111_1111;
     
     always @ (shown_segments) begin
-        case (shown_segments)
-            zero: number <= 0;
-            one: number <= 1;
-            two: number <= 2;
-            three: number <= 3;
-            four: number <= 4;
-            five: number <= 5;
-            six: number <= 6;
-            seven: number <= 7;
-            eight: number <= 8;
-            nine: number <= 9;
-            default: number <= 10; // Invalid number
-        endcase
+        if (enable) begin
+            case (shown_segments)
+                zero: number <= 0;
+                one: number <= 1;
+                two: number <= 2;
+                three: number <= 3;
+                four: number <= 4;
+                five: number <= 5;
+                six: number <= 6;
+                seven: number <= 7;
+                eight: number <= 8;
+                nine: number <= 9;
+                default: number <= 10; // Invalid number
+            endcase
+        end
     end
 
 endmodule

@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module menu_list(
+    input enable,
     input [3:0] hover,
     input [12:0] pixel_index,
     input [31:0] scroll_offset,
@@ -49,20 +50,22 @@ module menu_list(
     complete_header thirteenth(.index(index), .color(complete_color), .show_border(hover));
     
     always @ (pixel_index) begin
-        if (index / 1248 == 0) color = header_color;
-        else if (index / 1248 == 1) color = audio_in_color;
-        else if (index / 1248 == 2) color = audio_out_color;
-        else if (index / 1248 == 3) color = mouse_color;
-        else if (index / 1248 == 4) color = display_color;
-        else if (index / 1248 == 5) color = personal_color;
-        else if (index / 1248 == 6) color = dylan_color;
-        else if (index / 1248 == 7) color = jy_color;
-        else if (index / 1248 == 8) color = mc_color;
-        else if (index / 1248 == 9) color = zh_color;
-        else if (index / 1248 == 10) color = team_color;
-        else if (index / 1248 == 11) color = basic_color;
-        else if (index / 1248 == 12) color = complete_color;
-        else color = 0;
+        if (enable) begin
+            if (index / 1248 == 0) color = header_color;
+            else if (index / 1248 == 1) color = audio_in_color;
+            else if (index / 1248 == 2) color = audio_out_color;
+            else if (index / 1248 == 3) color = mouse_color;
+            else if (index / 1248 == 4) color = display_color;
+            else if (index / 1248 == 5) color = personal_color;
+            else if (index / 1248 == 6) color = dylan_color;
+            else if (index / 1248 == 7) color = jy_color;
+            else if (index / 1248 == 8) color = mc_color;
+            else if (index / 1248 == 9) color = zh_color;
+            else if (index / 1248 == 10) color = team_color;
+            else if (index / 1248 == 11) color = basic_color;
+            else if (index / 1248 == 12) color = complete_color;
+            else color = 0;
+        end
     end
     
 endmodule

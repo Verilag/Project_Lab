@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module team_integration_segment(
+    input enable,
     input [3:0] number, // Recognised number
     input [3:0] volume, // Audio input task
     output [15:0] seg_nums
@@ -29,20 +30,22 @@ module team_integration_segment(
     assign seg_nums = { first, second, third, fourth }; 
     
     always @ (number, volume) begin
-        fourth = volume;
-        third = 15; // Show NONE
-        
-        if (number == 10) begin
-            first <= 15; // Show NONE
-            second <= 15; // Show NONE
+        if (enable) begin
+            fourth = volume;
+            third = 15; // Show NONE
             
-        end else if (number == 9) begin
-            first <= 1;
-            second <= 0;
-            
-        end else begin
-            first <= 0;
-            second <= number+1;
+            if (number == 10) begin
+                first <= 15; // Show NONE
+                second <= 15; // Show NONE
+                
+            end else if (number == 9) begin
+                first <= 1;
+                second <= 0;
+                
+            end else begin
+                first <= 0;
+                second <= number+1;
+            end
         end
     end
 
@@ -51,24 +54,29 @@ endmodule
 
 module click_detector(
     input [6:0] mouse_x, mouse_y,
-    input left_click, right_click, led15, 
-    output reg [12:0] segments = 13'b0_0000_0000_0000
+    input enable, clk1khz, left_click, right_click, led15, 
+    output reg [12:0] segments = 0
 );
     // Get segment that cursor is currently in
     wire [12:0] within;
     coord_to_segment convert(.x(mouse_x), .y(mouse_y), .within(within));
     
-    // Update segment filled status only on left/right mouse click
-    always @ (posedge left_click, posedge right_click, negedge led15) begin     
-        if (left_click) segments <= segments | within; // Set segment
+    reg prev_en, prev_led;
+    always @ (posedge clk1khz) begin
+        if (enable > prev_en) segments <= 0; // Reset on rising edge of enable
+        else if (left_click) segments <= segments | within; // Set segment
         else if (right_click) segments <= segments & ~within; // Clear segment 
-        else segments <= 13'b0_0000_0000_0000; // Reset segments
+        else if (led15 < prev_led) segments <= 0; // Reset on falling edge of led15
+        
+        prev_led <= led15;
+        prev_en <= enable;
     end
 
 endmodule
 
 
 module team_integration_oled(
+    input enable,
     input [6:0] mouse_x, mouse_y,
     input [12:0] shown_segments, pixel_index,
     output reg [15:0] color_chooser
@@ -101,11 +109,13 @@ module team_integration_oled(
     );
     
     always @ (pixel_index) begin
-        if (within_cursor) color_chooser <= cursor_color;
-        else if (green_border) color_chooser <= green_color;
-        else if (outline) color_chooser <= outline_color;
-        else if (shown_segments & index_within) color_chooser <= white_color;
-        else color_chooser <= background_color;
+        if (enable) begin
+            if (within_cursor) color_chooser <= cursor_color;
+            else if (green_border) color_chooser <= green_color;
+            else if (outline) color_chooser <= outline_color;
+            else if (shown_segments & index_within) color_chooser <= white_color;
+            else color_chooser <= background_color;
+        end
     end
 
 endmodule

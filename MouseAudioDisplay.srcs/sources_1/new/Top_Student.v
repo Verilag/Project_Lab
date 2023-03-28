@@ -38,12 +38,15 @@ module Top_Student (
         .audio_in(audio_in), .audio_out(audio_out)
     );
     
-    wire [3:0] hover_menu_item; wire [15:0] menu_color;
-    main_menu menu_app(.clk_100Mhz(clk_100Mhz), .btnC(btnC), .btnU(btnU), .btnD(btnD),
+    wire [3:0] state, hover_menu_item; wire [15:0] menu_color;
+    main_menu menu_app(
+        .enable(state == MENU),
+        .clk_100Mhz(clk_100Mhz), .btnC(btnC), .btnU(btnU), .btnD(btnD),
         .mouse_x(mouse_x), .mouse_y(mouse_y), .pixel_index(pixel_index),
-        .hover_menu_item(hover_menu_item), .color_chooser(menu_color));
+        .hover_menu_item(hover_menu_item), .color_chooser(menu_color)
+    );
         
-    wire [3:0] state; wire clk1Mhz_signal;
+    wire clk1Mhz_signal;
     clock_gen_hz clk1Mhz(.clk_100Mhz(clk_100Mhz), .freq(1_000_000), .clk(clk1Mhz_signal));
     menu_fsm(.clk1Mhz(clk1Mhz_signal), .back(btnL), .left_click(mouse_l), 
         .hover_entry(hover_menu_item), .state(state));
@@ -51,12 +54,16 @@ module Top_Student (
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
     team_integration team(
+        .enable(state == TEAM_BASIC),
         .clk_100Mhz(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw15(sw[15]),
         .mouse_x(mouse_x), .mouse_y(mouse_y), .audio_in(audio_in), .pixel_index(pixel_index), 
         
         .colour_chooser(team_basic_color), .audio_out(team_basic_speaker),
         .led(team_basic_led), .seg_nums(team_basic_nums), .dp(team_basic_dp)
     );
+
+//    wire [15:0] test_color;
+//    test_app_oled t1(clk_100Mhz, pixel_index, test_color);
     
     display_multiplexer oled_display(.state(state),
         .menu_color(menu_color), .team_basic_color(team_basic_color),
