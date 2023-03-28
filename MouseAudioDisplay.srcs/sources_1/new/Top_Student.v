@@ -71,6 +71,19 @@ module Top_Student (
         .color_chooser(basic_mouse_color)
     );
     
+    wire clk25Mhz_signal;
+    clock_gen_hz clk25Mhz(.clk_100Mhz(clk_100Mhz), .freq(25_000_000), .clk(clk25Mhz_signal));
+    
+    wire [15:0] basic_display_color;
+    basic_display(
+        .enable(state == BASIC_DISPLAY),
+        .clk(clk25Mhz_signal),
+        .reset_display_button(btnC),
+        .sw(sw[10:0]),
+        .pixel_index(pixel_index),
+        .colour_chooser(basic_display_color)
+    );
+    
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
@@ -89,7 +102,7 @@ module Top_Student (
     
     display_multiplexer oled_display(
         .state(state),
-        .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color),
+        .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), .basic_display_color(basic_display_color),
         .color_chooser(colour_chooser)
     );
     

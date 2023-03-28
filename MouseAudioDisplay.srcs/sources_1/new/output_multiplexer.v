@@ -53,7 +53,7 @@ endmodule
 
 module display_multiplexer(
     input [3:0] state,
-    input [15:0] menu_color, basic_mouse_color, team_basic_color, 
+    input [15:0] menu_color, basic_mouse_color, team_basic_color, basic_display_color,
     output reg [15:0] color_chooser
 );
 
@@ -62,6 +62,7 @@ module display_multiplexer(
             MENU: color_chooser = menu_color;
             BASIC_MOUSE: color_chooser = basic_mouse_color;
             TEAM_BASIC: color_chooser = team_basic_color;
+            BASIC_DISPLAY: color_chooser = basic_display_color;
             default: color_chooser = 0;
         endcase
     end
