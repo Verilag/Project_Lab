@@ -123,10 +123,50 @@ module seg_multiplexer(
                 else if (index == 3) seg = team_basic_seg[27:21];
             end 
             default: begin 
-                dp = 4'b1111;
+                dp = 1;
                 seg = 7'b1111111;
             end
         endcase
     end
     
+endmodule
+
+module number_to_segment(
+    input [3:0] number,
+    output reg [6:0] segment
+);
+
+    parameter NONE = 7'b1111111;
+    parameter ZERO = 7'b1000000;
+    parameter ONE = 7'b1111001;
+    parameter TWO = 7'b0100100;
+    parameter THREE = 7'b0110000;
+    parameter FOUR = 7'b0011001;
+    parameter FIVE = 7'b0010010;
+    parameter SIX = 7'b0000010;
+    parameter SEVEN = 7'b1111000;
+    parameter EIGHT = 7'b0000000;
+    parameter NINE = 7'b0010000;
+    
+    always @ (number) begin
+        case (number)
+            0: segment = ZERO;
+            1: segment = ONE;
+            2: segment = TWO;
+            3: segment = THREE;
+            4: segment = FOUR;
+            5: segment = FIVE;
+            6: segment = SIX;
+            7: segment = SEVEN;
+            8: segment = EIGHT;
+            9: segment = NINE;
+//            10: segment = TEN;
+//            11: segment = 
+//            12: segment = 
+//            13: segment = 
+//            14: segment = 
+            15: segment = NONE;
+        endcase
+    end
+
 endmodule
