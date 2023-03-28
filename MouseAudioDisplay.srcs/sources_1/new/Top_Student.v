@@ -23,9 +23,15 @@ module Top_Student (
     inout PS2Clk, PS2Data
 ); 
 
-    wire [12:0] pixel_index; wire [15:0] colour_chooser;
-    wire [11:0] mouse_x, mouse_y; wire mouse_l, mouse_m, mouse_r;
-    wire [11:0] audio_in, audio_out;
+    // Input hardware data
+    wire [11:0] mouse_x, mouse_y; 
+    wire mouse_l, mouse_m, mouse_r;
+    wire [12:0] pixel_index; 
+    wire [11:0] audio_in;
+
+    // Output hardware data
+    wire [15:0] colour_chooser; // Display 
+    wire [11:0] audio_out; // Speaker
     
     peripherals hardware(
         .clk_100Mhz(clk_100Mhz), .J_MIC_Pin3(J_MIC_Pin3), .JXADC(JXADC),
