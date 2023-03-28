@@ -38,6 +38,7 @@ module Top_Student (
         .audio_in(audio_in), .audio_out(audio_out)
     );
     
+    
     wire [3:0] state, hover_menu_item; wire [15:0] menu_color;
     main_menu menu_app(
         .enable(state == MENU),
@@ -45,11 +46,25 @@ module Top_Student (
         .mouse_x(mouse_x), .mouse_y(mouse_y), .pixel_index(pixel_index),
         .hover_menu_item(hover_menu_item), .color_chooser(menu_color)
     );
-        
+    
+    
     wire clk1Mhz_signal;
     clock_gen_hz clk1Mhz(.clk_100Mhz(clk_100Mhz), .freq(1_000_000), .clk(clk1Mhz_signal));
-    menu_fsm(.clk1Mhz(clk1Mhz_signal), .back(btnL), .left_click(mouse_l), 
-        .hover_entry(hover_menu_item), .state(state));
+    menu_fsm(
+        .clk1Mhz(clk1Mhz_signal), .back(btnL), .left_click(mouse_l), 
+        .hover_entry(hover_menu_item), .state(state)
+    );
+    
+    
+    wire [15:0] basic_mouse_color;
+    basic_mouse(
+        .enable(state == BASIC_MOUSE),
+        .mouse_m(mouse_m),
+        .mouse_x(mouse_x), .mouse_y(mouse_y),
+        .pixel_index(pixel_index),
+        .color_chooser(basic_mouse_color)
+    );
+    
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
@@ -65,19 +80,32 @@ module Top_Student (
 //    wire [15:0] test_color;
 //    test_app_oled t1(clk_100Mhz, pixel_index, test_color);
     
-    display_multiplexer oled_display(.state(state),
-        .menu_color(menu_color), .team_basic_color(team_basic_color),
-        .color_chooser(colour_chooser));
     
-    audio_out_multiplexer speaker(.state(state), .team_basic_out(team_basic_speaker), .audio_out(audio_out));
+    display_multiplexer oled_display(
+        .state(state),
+        .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color),
+        .color_chooser(colour_chooser)
+    );
     
-    led_multiplexer leds(.state(state), .team_basic_led(team_basic_led), .led(led));
+    audio_out_multiplexer speaker(
+        .state(state), 
+        .team_basic_out(team_basic_speaker), 
+        .audio_out(audio_out)
+    );
+    
+    led_multiplexer leds(
+        .state(state), 
+        .team_basic_led(team_basic_led), 
+        .led(led)
+    );
     
     wire clk1khz_signal;
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
-    seg_multiplexer segment(.clk1khz(clk1khz_signal), .state(state),
+    seg_multiplexer segment(
+        .clk1khz(clk1khz_signal), .state(state),
         .team_basic_nums(team_basic_nums), .team_basic_decimal(team_basic_dp),
-        .an(an), .seg(seg), .dp(dp));
+        .an(an), .seg(seg), .dp(dp)
+    );
     
 endmodule
 
