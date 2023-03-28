@@ -20,15 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module find_peak(
-    input enable, sampling_clock,
+    input enable, clk1khz,
     input [11:0] sample,
     input [31:0] max_sample,
-    output reg [11:0] peak
+    output reg [11:0] peak = 0
 );
     reg [31:0] count = 0;
     reg [11:0] best = 2048;
     
-    always @(posedge sampling_clock) begin
+    always @(posedge clk1khz) begin
         if (enable) begin
             if (count == max_sample) begin
                 peak <= best;
@@ -67,6 +67,7 @@ module select_volume(
     
 endmodule
 
+
 module audio_input_task(
     input clk_100Mhz,
     input [11:0] audio_in, 
@@ -80,7 +81,7 @@ module audio_input_task(
     parameter max_sample = 31'd128;
     find_peak update(
         .enable(enable),
-        .sampling_clock(clk1khz_signal),
+        .clk1khz(clk1khz_signal),
         .sample(audio_in),
         .max_sample(max_sample),
         .peak(peak)
@@ -105,9 +106,9 @@ module play_audio(
     reg [31:0] counter = 0;
     
     always @ (posedge clk_100Mhz) begin
-        if (number != prev_num) begin
+        if (number != prev_num && number != 10) begin
             counter = 0; // Start counting from 0
-            beep = number != 10; // Valid new number detected
+            beep = 1; // Valid new number detected
         end
             
         if (beep) counter = counter + 1; // Increment counter

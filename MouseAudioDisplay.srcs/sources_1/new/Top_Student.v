@@ -48,7 +48,7 @@ module Top_Student (
         .led(team_basic_led), .seg(team_basic_seg), .dp(team_basic_dp)
     );
     
-    display_multiplexer display(.state(TEAM_BASIC),
+    display_multiplexer oled_display(.state(TEAM_BASIC),
         .menu_color(0), .team_basic_color(team_basic_color),
         .color_chooser(colour_chooser));
     
