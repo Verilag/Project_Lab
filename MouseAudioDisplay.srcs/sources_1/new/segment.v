@@ -21,10 +21,9 @@
 
 
 module display_segment(
-    input clk10khz,
     input [3:0] number, // Recognised number
     input [3:0] volume, // Audio input task
-    output [3:0] an, output [6:0] seg, output dp
+    output [27:0] seg
 );  
 
     parameter NONE = 7'b1111111;
@@ -45,33 +44,26 @@ module display_segment(
     assign nums[6] = SIX; assign nums[7] = SEVEN; assign nums[8] = EIGHT;
     assign nums[9] = NINE;
 
-    reg [6:0] display [3:0]; 
     reg [1:0] index = 2'b0;
+    reg [6:0] first, second, third, fourth;
+    assign seg = { first, second, third, fourth }; 
     
-    assign an = ~(1'b1 << index);
-    assign seg = display[index];
-    assign dp = ~(number != 10 && index == 3);
-
     always @ (number, volume) begin
-        display[0] <= nums[volume];
-        display[1] <= NONE;
+        fourth = nums[volume];
+        third = NONE;
         
         if (number == 10) begin
-            display[3] <= NONE;
-            display[2] <= NONE;
+            first <= NONE;
+            second <= NONE;
             
         end else if (number == 9) begin
-            display[3] <= ONE;
-            display[2] <= ZERO;
+            first <= ONE;
+            second <= ZERO;
             
         end else begin
-            display[3] <= ZERO;
-            display[2] <= nums[number+1];
+            first <= ZERO;
+            second <= nums[number+1];
         end
-    end
-
-    always @ (posedge clk10khz) begin
-        index <= index + 1;
     end
 
 endmodule

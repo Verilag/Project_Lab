@@ -112,6 +112,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/output_multiplexer.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/new/peripherals.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -166,7 +173,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/clock_divider.v">
+      <File Path="$PPRDIR/archive_project_summary.txt"/>
+      <File Path="$PSRCDIR/sources_1/new/clock_gen_ms.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -174,8 +182,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/archive_project_summary.txt"/>
-      <File Path="$PSRCDIR/sources_1/new/clock_gen_ms.v">
+      <File Path="$PSRCDIR/sources_1/new/menu_images.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
