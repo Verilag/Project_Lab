@@ -62,6 +62,7 @@ module display_multiplexer(
     always @ (state) begin
         case (state)
             MENU: color_chooser = menu_color;
+            BASIC_AUDIO_IN: color_chooser = 16'b00000_111111_00000;
             BASIC_MOUSE: color_chooser = basic_mouse_color;
             BASIC_DISPLAY: color_chooser = basic_display_color;
             PAINT: color_chooser = paint_color;
@@ -94,14 +95,15 @@ endmodule
 
 module led_multiplexer(
     input [3:0] state,
-    input [15:0] team_basic_led, paint_led, audio_cal_led,
+    input [15:0] team_basic_led, paint_led, audio_cal_led, basic_audio_in_led,
     output reg [15:0] led
 );
 
     always @ (state) begin
         case (state)
-            TEAM_BASIC: led = team_basic_led;
+            BASIC_AUDIO_IN: led = basic_audio_in_led;
             PAINT: led = paint_led;
+            TEAM_BASIC: led = team_basic_led;
             TEAM_AUDIO_CAL: led = audio_cal_led;
             default: led = 0;
         endcase
@@ -112,7 +114,7 @@ endmodule
 module seg_multiplexer(
     input clk1khz,
     input [3:0] state,
-    input [15:0] team_basic_nums, audio_cal_nums, numpad_nums,
+    input [15:0] team_basic_nums, audio_cal_nums, numpad_nums, basic_audio_in_nums,
     input [3:0] team_basic_dp, numpad_dp,
     output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 1
 );
@@ -129,9 +131,18 @@ module seg_multiplexer(
     number_to_segment num_seg_2(team_basic_nums, team_basic_seg);
     wire [27:0] audio_cal_seg;
     number_to_segment num_seg_3(audio_cal_nums, audio_cal_seg);
+    wire [27:0] basic_audio_in_seg;
+    number_to_segment num_seg_4(basic_audio_in_nums, basic_audio_in_seg);
     
     always @ (index) begin
         case (state)
+            BASIC_AUDIO_IN: begin
+                dp = 1;
+                if (index == 0) seg = basic_audio_in_seg[6:0];
+                else if (index == 1) seg = basic_audio_in_seg[13:7];
+                else if (index == 2) seg = basic_audio_in_seg[20:14];
+                else if (index == 3) seg = basic_audio_in_seg[27:21];
+            end
             NUMPAD: begin
                 dp = numpad_dp[index];
                 if (index == 0) seg = numpad_seg[6:0];

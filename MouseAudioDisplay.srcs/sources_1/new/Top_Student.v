@@ -61,6 +61,14 @@ module Top_Student (
         .hover_entry(hover_menu_item), .state(state)
     );
     
+
+    wire [15:0] basic_audio_in_led, basic_audio_in_nums;
+    basic_audio_in(
+        .enable(state == BASIC_AUDIO_IN), .clk_100Mhz(clk_100Mhz), .audio_in(audio_in), 
+        .basic_audio_in_led(basic_audio_in_led), 
+        .basic_audio_in_nums(basic_audio_in_nums)
+    );
+    
     
     wire [15:0] basic_mouse_color;
     basic_mouse(
@@ -70,6 +78,7 @@ module Top_Student (
         .pixel_index(pixel_index),
         .color_chooser(basic_mouse_color)
     );
+
     
     wire clk25Mhz_signal;
     clock_gen_hz clk25Mhz(.clk_100Mhz(clk_100Mhz), .freq(25_000_000), .clk(clk25Mhz_signal));
@@ -155,6 +164,7 @@ module Top_Student (
     
     led_multiplexer leds(
         .state(state), 
+        .basic_audio_in_led(basic_audio_in_led),
         .team_basic_led(team_basic_led),
         .paint_led(paint_led),
         .audio_cal_led(audio_cal_led),
@@ -165,6 +175,7 @@ module Top_Student (
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
     seg_multiplexer segment(
         .clk1khz(clk1khz_signal), .state(state),
+        .basic_audio_in_nums(basic_audio_in_nums),
         .team_basic_nums(team_basic_nums), .team_basic_dp(team_basic_dp), 
         .audio_cal_nums(audio_cal_nums),
         .numpad_nums(numpad_nums), .numpad_dp(numpad_dp),

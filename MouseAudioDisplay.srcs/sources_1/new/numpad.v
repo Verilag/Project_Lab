@@ -118,25 +118,6 @@ module numpad(
 
 endmodule
 
-//module delay_start_click(
-//    input enable, clk1Mhz
-//);
-
-//    reg prev_en = 0, delay = 0;
-//    reg [31:0] count = 0;
-//    always @ (posedge clk1Mhz) begin
-//        if (enable > prev_en) begin
-//            delay = 1;
-//            count = 0;
-//        end
-        
-//        if (delay) count = count + 1;
-        
-//        if (count == )
-//        prev_en = enable;
-//    end
-
-//endmodule
 
 module numpad_click_detector(
     input enable, left_click, clk1Mhz, clk1hz,
