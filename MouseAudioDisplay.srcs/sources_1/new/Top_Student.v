@@ -24,7 +24,7 @@ module Top_Student (
 ); 
 
     // Input hardware data
-    wire [11:0] mouse_x, mouse_y; 
+    wire [6:0] mouse_x, mouse_y; 
     wire mouse_l, mouse_m, mouse_r;
     wire [12:0] pixel_index; 
     wire [11:0] audio_in;
@@ -88,7 +88,7 @@ module Top_Student (
     wire [11:0] paint_speaker;
     wire [15:0] paint_led;
     
-    paint(
+    paint paint_app(
         .enable(state == PAINT),
         .clk_100M(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw0(sw[0]), .sw15(sw[15]), .btnC(btnC), .btnR(btnR), 
         .mouse_x(mouse_x), .mouse_y(mouse_y),
@@ -97,6 +97,19 @@ module Top_Student (
         .colour_chooser(paint_color),
         .audio_out(paint_speaker)
     );    
+    
+    wire [15:0] numpad_color; wire clk1hz_signal;
+    wire [3:0] numpad_dp; wire [15:0] numpad_nums;
+    clock_gen_hz clk1hz(.clk_100Mhz(clk_100Mhz), .freq(1), .clk(clk1hz_signal));
+    numpad np(
+        .enable(state == NUMPAD), .mouse_l(mouse_l),
+        .clk1Mhz(clk1Mhz_signal), .clk1hz(clk1hz_signal),
+        .mouse_x(mouse_x), .mouse_y(mouse_y), .pixel_index(pixel_index),
+        
+        .color_chooser(numpad_color),
+        .numpad_dp(numpad_dp),
+        .numpad_nums(numpad_nums)
+    );
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
     wire [3:0] team_basic_dp; wire [15:0] team_basic_led; wire [15:0] team_basic_nums;
@@ -115,7 +128,7 @@ module Top_Student (
     wire [11:0] audio_cal_speaker;
     wire [15:0] audio_cal_nums;
     audio_cal audio_cal_app(
-        .enable(state == AUDIO_CAL),
+        .enable(state == TEAM_AUDIO_CAL),
         .clock_1ns(clk_100Mhz),
         .sw(sw),
         .data_stream(audio_in),
@@ -126,7 +139,8 @@ module Top_Student (
     
     display_multiplexer oled_display(
         .state(state),
-        .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), .basic_display_color(basic_display_color),
+        .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), 
+        .basic_display_color(basic_display_color), .numpad_color(numpad_color),
         .paint_color(paint_color),
         .color_chooser(colour_chooser)
     );
@@ -151,7 +165,9 @@ module Top_Student (
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
     seg_multiplexer segment(
         .clk1khz(clk1khz_signal), .state(state),
-        .team_basic_nums(team_basic_nums), .team_basic_decimal(team_basic_dp), .audio_cal_nums(audio_cal_nums),
+        .team_basic_nums(team_basic_nums), .team_basic_dp(team_basic_dp), 
+        .audio_cal_nums(audio_cal_nums),
+        .numpad_nums(numpad_nums), .numpad_dp(numpad_dp),
         .an(an), .seg(seg), .dp(dp)
     );
     

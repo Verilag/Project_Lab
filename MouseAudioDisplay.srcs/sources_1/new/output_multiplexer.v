@@ -26,9 +26,10 @@ parameter BASIC_DISPLAY = 4;
 parameter DYLAN = 6;
 parameter JINGYANG = 7;
 parameter PAINT = 8;
-parameter ZHENGHONG = 9;
+parameter NUMPAD = 9;
 parameter TEAM_BASIC = 11;
-parameter AUDIO_CAL = 12;
+parameter TEAM_AUDIO_CAL = 12;
+parameter TEAM_RECEIVER = 13;
 
 module menu_fsm(
     input clk1Mhz, back, left_click,
@@ -54,6 +55,7 @@ endmodule
 module display_multiplexer(
     input [3:0] state,
     input [15:0] menu_color, basic_mouse_color, team_basic_color, basic_display_color, paint_color,
+        numpad_color,
     output reg [15:0] color_chooser
 );
 
@@ -61,9 +63,10 @@ module display_multiplexer(
         case (state)
             MENU: color_chooser = menu_color;
             BASIC_MOUSE: color_chooser = basic_mouse_color;
-            TEAM_BASIC: color_chooser = team_basic_color;
             BASIC_DISPLAY: color_chooser = basic_display_color;
             PAINT: color_chooser = paint_color;
+            NUMPAD: color_chooser = numpad_color;
+            TEAM_BASIC: color_chooser = team_basic_color;
             default: color_chooser = 0;
         endcase
     end
@@ -81,7 +84,7 @@ module audio_out_multiplexer(
         case (state)
             TEAM_BASIC: audio_out = team_basic_out;
             PAINT: audio_out = paint_out;
-            AUDIO_CAL: audio_out = audio_cal_out;
+            TEAM_AUDIO_CAL: audio_out = audio_cal_out;
             default: audio_out = 0;
         endcase
     end
@@ -99,7 +102,7 @@ module led_multiplexer(
         case (state)
             TEAM_BASIC: led = team_basic_led;
             PAINT: led = paint_led;
-            AUDIO_CAL: led = audio_cal_led;
+            TEAM_AUDIO_CAL: led = audio_cal_led;
             default: led = 0;
         endcase
     end
@@ -109,9 +112,9 @@ endmodule
 module seg_multiplexer(
     input clk1khz,
     input [3:0] state,
-    input [15:0] team_basic_nums, audio_cal_nums,
-    input [3:0] team_basic_decimal,
-    output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 0
+    input [15:0] team_basic_nums, audio_cal_nums, numpad_nums,
+    input [3:0] team_basic_dp, numpad_dp,
+    output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 1
 );
     
     reg [1:0] index = 0;
@@ -120,21 +123,31 @@ module seg_multiplexer(
         index <= index + 1;
     end
     
+    wire [27:0] numpad_seg;
+    number_to_segment num_seg_1(numpad_nums, numpad_seg);
     wire [27:0] team_basic_seg;
-    number_to_segment num_seg_1(team_basic_nums, team_basic_seg);
+    number_to_segment num_seg_2(team_basic_nums, team_basic_seg);
     wire [27:0] audio_cal_seg;
-    number_to_segment audio_cal_seg_1(audio_cal_nums, audio_cal_seg);
+    number_to_segment num_seg_3(audio_cal_nums, audio_cal_seg);
     
     always @ (index) begin
         case (state)
+            NUMPAD: begin
+                dp = numpad_dp[index];
+                if (index == 0) seg = numpad_seg[6:0];
+                else if (index == 1) seg = numpad_seg[13:7];
+                else if (index == 2) seg = numpad_seg[20:14];
+                else if (index == 3) seg = numpad_seg[27:21];
+            end
             TEAM_BASIC: begin
-                dp = team_basic_decimal[index];
+                dp = team_basic_dp[index];
                 if (index == 0) seg = team_basic_seg[6:0];
                 else if (index == 1) seg = team_basic_seg[13:7];
                 else if (index == 2) seg = team_basic_seg[20:14];
                 else if (index == 3) seg = team_basic_seg[27:21];
             end 
-            AUDIO_CAL: begin
+            TEAM_AUDIO_CAL: begin
+                dp = 1;
                 if (index == 0) seg = audio_cal_seg[6:0];
                 else if (index == 1) seg = audio_cal_seg[13:7];
                 else if (index == 2) seg = audio_cal_seg[20:14];

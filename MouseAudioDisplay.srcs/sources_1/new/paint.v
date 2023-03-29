@@ -28,10 +28,6 @@ module paint(
     output [11:0] audio_out
 );
     
-    // Limit mouse coordinates to screen dimensions (64 x 96 pixels)
-    wire [6:0] limit_x, limit_y;
-    limit_mouse_coor limit(.x(mouse_x), .y(mouse_y), .limit_x(limit_x), .limit_y(limit_y));
-    
     // Detect mouse click and update colour choice status
     //wire [15:0] colour_choice;
     //click_colour_detector click(.mouse_x(limit_x), .mouse_y(limit_y), .left_click(mouse_l), 
@@ -46,7 +42,10 @@ module paint(
     );
     
     // Show colour palette, outline and mouse cursor 
-    display_audio display(.enable(enable), .speed_toggler(sw0), .reset(btnC), .send_message(sw15), .mouse_x(limit_x), .mouse_y(limit_y), .left_click(mouse_l), .pixel_index(pixel_index), 
-    .color_chooser(colour_chooser), .clockMouse(clockMouse), .audio_out(audio_out), .clk_100M(clk_100M), .led(led));
+    display_audio display(
+        .enable(enable), .speed_toggler(sw0), .reset(btnC), .send_message(sw15), 
+        .mouse_x(mouse_x), .mouse_y(mouse_y), .left_click(mouse_l), .pixel_index(pixel_index), 
+        .color_chooser(colour_chooser), .clockMouse(clockMouse), .audio_out(audio_out), 
+        .clk_100M(clk_100M), .led(led));
 
 endmodule

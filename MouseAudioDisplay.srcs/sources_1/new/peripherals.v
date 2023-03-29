@@ -28,7 +28,7 @@ module peripherals(
     inout PS2Clk, PS2Data,
     
     input [15:0] colour_chooser, output [12:0] pixel_index, // OLED display variables
-    output [11:0] mouse_x, mouse_y, output mouse_l, mouse_m, mouse_r, // Mouse variables
+    output [6:0] mouse_x, mouse_y, output mouse_l, mouse_m, mouse_r, // Mouse variables
     output [11:0] audio_in, input [11:0] audio_out // Audio in & out variables
 );
     
@@ -39,13 +39,13 @@ module peripherals(
         .cs(cs), .sdin(sdin), .sclk(sclk), .d_cn(d_cn), .resn(resn), .vccen(vccen), .pmoden(pmoden));
         
     wire [3:0] mouse_z; wire mouse_new_e;
+    wire [11:0] raw_mouse_x, raw_mouse_y;
     MouseCtl mouse(.clk(clk_100Mhz), .rst(0), .value(0), .setx(0), .sety(0), .setmax_x(0), .setmax_y(0),
-        .xpos(mouse_x), .ypos(mouse_y), .zpos(mouse_z),
+        .xpos(raw_mouse_x), .ypos(raw_mouse_y), .zpos(mouse_z),
         .left(mouse_l), .middle(mouse_m), .right(mouse_r), .new_event(mouse_new_e),
         .ps2_clk(PS2Clk), .ps2_data(PS2Data));
         
-    wire [6:0] limit_x, limit_y;
-    limit_mouse_coor limit(.x(mouse_x), .y(mouse_y), .limit_x(limit_x), .limit_y(limit_y));
+    limit_mouse_coor limit(.x(raw_mouse_x), .y(raw_mouse_y), .limit_x(mouse_x), .limit_y(mouse_y));
     
     wire clk20khz_signal; 
     clock_gen_hz clk20k(.clk_100Mhz(clk_100Mhz), .freq (20_000), .clk (clk20khz_signal));
