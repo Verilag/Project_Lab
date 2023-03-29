@@ -28,7 +28,7 @@ parameter JINGYANG = 7;
 parameter PAINT = 8;
 parameter ZHENGHONG = 9;
 parameter TEAM_BASIC = 11;
-parameter TEAM_COMPLETE = 12;
+parameter AUDIO_CAL = 12;
 
 module menu_fsm(
     input clk1Mhz, back, left_click,
@@ -73,7 +73,7 @@ endmodule
 
 module audio_out_multiplexer(
     input [3:0] state,
-    input [11:0] team_basic_out, paint_out,
+    input [11:0] team_basic_out, paint_out, audio_cal_out,
     output reg [11:0] audio_out
 );
 
@@ -81,6 +81,7 @@ module audio_out_multiplexer(
         case (state)
             TEAM_BASIC: audio_out = team_basic_out;
             PAINT: audio_out = paint_out;
+            AUDIO_CAL: audio_out = audio_cal_out;
             default: audio_out = 0;
         endcase
     end
@@ -90,7 +91,7 @@ endmodule
 
 module led_multiplexer(
     input [3:0] state,
-    input [15:0] team_basic_led, paint_led,
+    input [15:0] team_basic_led, paint_led, audio_cal_led,
     output reg [15:0] led
 );
 
@@ -98,6 +99,7 @@ module led_multiplexer(
         case (state)
             TEAM_BASIC: led = team_basic_led;
             PAINT: led = paint_led;
+            AUDIO_CAL: led = audio_cal_led;
             default: led = 0;
         endcase
     end
@@ -107,7 +109,7 @@ endmodule
 module seg_multiplexer(
     input clk1khz,
     input [3:0] state,
-    input [15:0] team_basic_nums,
+    input [15:0] team_basic_nums, audio_cal_nums,
     input [3:0] team_basic_decimal,
     output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 0
 );
@@ -120,6 +122,8 @@ module seg_multiplexer(
     
     wire [27:0] team_basic_seg;
     number_to_segment num_seg_1(team_basic_nums, team_basic_seg);
+    wire [27:0] audio_cal_seg;
+    number_to_segment audio_cal_seg_1(audio_cal_nums, audio_cal_seg);
     
     always @ (index) begin
         case (state)
@@ -130,6 +134,12 @@ module seg_multiplexer(
                 else if (index == 2) seg = team_basic_seg[20:14];
                 else if (index == 3) seg = team_basic_seg[27:21];
             end 
+            AUDIO_CAL: begin
+                if (index == 0) seg = audio_cal_seg[6:0];
+                else if (index == 1) seg = audio_cal_seg[13:7];
+                else if (index == 2) seg = audio_cal_seg[20:14];
+                else if (index == 3) seg = audio_cal_seg[27:21];
+            end
             default: begin 
                 dp = 1;
                 seg = 7'b1111111;

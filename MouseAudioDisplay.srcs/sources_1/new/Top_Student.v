@@ -109,9 +109,20 @@ module Top_Student (
         .led(team_basic_led), .seg_nums(team_basic_nums), .dp(team_basic_dp)
     );
 
-//    wire [15:0] test_color;
-//    test_app_oled t1(clk_100Mhz, pixel_index, test_color);
-    
+    wire [15:0] audio_cal_led;
+    wire [3:0] audio_cal_an;
+    wire [6:0] audio_cal_seg;
+    wire [11:0] audio_cal_speaker;
+    wire [15:0] audio_cal_nums;
+    audio_cal audio_cal_app(
+        .enable(state == AUDIO_CAL),
+        .clock_1ns(clk_100Mhz),
+        .sw(sw),
+        .data_stream(audio_in),
+        .led(audio_cal_led),
+        .seg_wire_freq(audio_cal_nums),
+        .audio_out(audio_cal_speaker)
+    );
     
     display_multiplexer oled_display(
         .state(state),
@@ -124,6 +135,7 @@ module Top_Student (
         .state(state), 
         .team_basic_out(team_basic_speaker),
         .paint_out(paint_speaker),
+        .audio_cal_out(audio_cal_speaker),
         .audio_out(audio_out)
     );
     
@@ -131,6 +143,7 @@ module Top_Student (
         .state(state), 
         .team_basic_led(team_basic_led),
         .paint_led(paint_led),
+        .audio_cal_led(audio_cal_led),
         .led(led)
     );
     
@@ -138,7 +151,7 @@ module Top_Student (
     clock_gen_hz clk1khz(.clk_100Mhz(clk_100Mhz), .freq(1000), .clk(clk1khz_signal));
     seg_multiplexer segment(
         .clk1khz(clk1khz_signal), .state(state),
-        .team_basic_nums(team_basic_nums), .team_basic_decimal(team_basic_dp),
+        .team_basic_nums(team_basic_nums), .team_basic_decimal(team_basic_dp), .audio_cal_nums(audio_cal_nums),
         .an(an), .seg(seg), .dp(dp)
     );
     
