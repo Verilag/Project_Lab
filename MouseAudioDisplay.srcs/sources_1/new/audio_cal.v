@@ -31,14 +31,6 @@ module audio_cal (
     output [11:0] audio_out
     );
     
-    wire clk50M;
-    
-    clock_gen_hz clk50Mhz (
-           .clk_100Mhz (clock_1ns),
-           .freq (50000000),
-           .clk (clk50M)
-    );
-    
     // ALL ENABLES GO HERE ///
     reg message_gen_enable = 0; // sw[15]
     reg audio_gen_enable = 0;
@@ -165,8 +157,8 @@ module audio_cal (
         end
     end 
       
-    reg [1:0] display_state = 2'b00;
-    reg [3:0] send_to_seg;
+//    reg [1:0] display_state = 2'b00;
+//    reg [3:0] send_to_seg;
     
 //    always @(posedge clk360hz_signal) begin
 //        if (enable) begin
@@ -227,7 +219,7 @@ module audio_cal (
         .message(message_wire),
         .message_ready_flag(message_received_flag),
         .led_message_state(message_state) // debugging code
-        );
+    );
     
     // END OF DECODING //
    

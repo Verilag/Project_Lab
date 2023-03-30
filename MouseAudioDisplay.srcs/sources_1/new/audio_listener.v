@@ -37,31 +37,6 @@ module display_on_seg(
     
 endmodule
 
-module update_peak(
-    input enable,
-    input sampling_clock,
-    input [11:0] sample,
-    input [31:0] max_sample,
-    output reg [11:0] peak
-    );
-    reg [31:0] count = 0;
-    reg [11:0] best = 0;
-    
-    always @(posedge sampling_clock) begin
-        if (enable) begin
-            if (count == max_sample) begin
-                peak <= best;
-                count <= 0;
-                best <= 0;
-            end // count == transmission_period, update average
-            else begin
-                count = count + 1;
-                best <= (best > sample)? best: sample;
-            end // count < max_sample, accumulate
-            end // enable
-    end//one clock cycle
-endmodule
-
 module audio_listener(
     input base_clock, // 1ns clock
     input enable,

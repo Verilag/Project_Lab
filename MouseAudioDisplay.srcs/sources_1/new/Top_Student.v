@@ -137,8 +137,6 @@ module Top_Student (
     );
 
     wire [15:0] audio_cal_led;
-    wire [3:0] audio_cal_an;
-    wire [6:0] audio_cal_seg;
     wire [11:0] audio_cal_speaker;
     wire [15:0] audio_cal_nums;
     audio_cal audio_cal_app(
@@ -151,11 +149,26 @@ module Top_Student (
         .audio_out(audio_cal_speaker)
     );
     
+    wire [15:0] receiver_app_led;
+    wire [15:0] receiver_app_nums;
+    wire [15:0] receiver_app_colour;
+    receiver_app audio_receiver_app(
+        .enable(state == TEAM_RECEIVER),
+        .clock_1ns(clk_100Mhz),
+        .sw(sw),
+        .data_stream(audio_in),
+        .pixel_index(pixel_index),
+        .led(receiver_app_led),
+        .colour_chooser(receiver_app_colour),
+        .seg_wire_freq(receiver_app_nums)
+    );
+    
+    
     display_multiplexer oled_display(
         .state(state),
         .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), 
         .basic_display_color(basic_display_color), .numpad_color(numpad_color),
-        .paint_color(paint_color),
+        .paint_color(paint_color), .receiver_app_color(receiver_app_colour),
         .color_chooser(colour_chooser)
     );
     
@@ -173,7 +186,7 @@ module Top_Student (
         .basic_audio_in_led(basic_audio_in_led),
         .team_basic_led(team_basic_led),
         .paint_led(paint_led),
-        .audio_cal_led(audio_cal_led),
+        .audio_cal_led(audio_cal_led), .receiver_app_led(receiver_app_led),
         .led(led)
     );
     
@@ -185,6 +198,7 @@ module Top_Student (
         .team_basic_nums(team_basic_nums), .team_basic_dp(team_basic_dp), 
         .audio_cal_nums(audio_cal_nums),
         .numpad_nums(numpad_nums), .numpad_dp(numpad_dp),
+        .receiver_app_nums(receiver_app_nums),
         .an(an), .seg(seg), .dp(dp)
     );
     
