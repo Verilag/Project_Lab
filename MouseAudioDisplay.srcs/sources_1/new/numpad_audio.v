@@ -21,12 +21,11 @@
 
 
 module numpad_audio(
-    input clk1Mhz, speed_toggler, send, enable,
+    input clk_100Mhz, speed_toggler, send, enable,
     input [15:0] message, 
     output reg [15:0] led,
     output [11:0] audio_out
 );  
-    wire [3:0] messageArray [255:0];
     wire [3:0] full_message [3:0];
     parameter arraySize = 4;
     
@@ -46,12 +45,12 @@ module numpad_audio(
     assign transmission_hex_period_ms = (transmission_period_ms * 5);
     
     reg [3:0] messageToSend;
-    reg [31:0] arrayStage = 0;
+    reg [1:0] arrayStage = 0;
     
     wire clk_transmission, clk_hex_transmission, clk20khz_signal;
-    clock_gen_hz clk20khz (.clk_100Mhz(clk1Mhz), .freq(20_000), .clk(clk20khz_signal));
-    clock_gen_ms clkTrans(.clk_100Mhz(clk1Mhz), .ms(transmission_period_ms), .clk(clk_transmission));
-    clock_gen_ms clkHexTrans(.clk_100Mhz(clk1Mhz), .ms(transmission_hex_period_ms), .clk(clk_hex_transmission));
+    clock_gen_hz clk20khz (.clk_100Mhz(clk_100Mhz), .freq(20_000), .clk(clk20khz_signal));
+    clock_gen_ms clkTrans(.clk_100Mhz(clk_100Mhz), .ms(transmission_period_ms), .clk(clk_transmission));
+    clock_gen_ms clkHexTrans(.clk_100Mhz(clk_100Mhz), .ms(transmission_hex_period_ms), .clk(clk_hex_transmission));
     
     wire [7:0] wire_led;
     always @(posedge clk20khz_signal) begin
@@ -62,7 +61,7 @@ module numpad_audio(
     end 
     
     audio_code_generator audio_gen(
-       .clk_100M(clk1Mhz),
+       .clk_100M(clk_100Mhz),
        .message(messageToSend),
        .clk_transmission(clk_transmission),
        .enable(audio_gen_enable),

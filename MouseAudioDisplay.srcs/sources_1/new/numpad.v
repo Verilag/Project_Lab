@@ -35,12 +35,13 @@ parameter NUMPAD_SEND = 12;
 
 
 module numpad(
-    input enable, clk1Mhz, clk1hz, mouse_l,
+    input enable, mouse_l, sw0, clk_100Mhz, clk1Mhz, clk1hz, 
     input [6:0] mouse_x, mouse_y,
     input [12:0] pixel_index,
     output reg [15:0] color_chooser = 0,
     output [3:0] numpad_dp,
-    output [15:0] numpad_nums
+    output [15:0] numpad_nums, numpad_led,
+    output [11:0] numpad_audio_out
 );
 
     wire [6:0] index_x, index_y;
@@ -51,10 +52,20 @@ module numpad(
     within_num check_num_pos(.x(index_x), .y(index_y), .number(num_pos));
     within_num check_mouse_pos(.x(mouse_x), .y(mouse_y), .number(mouse_pos));
     
+    wire send_signal;
     numpad_click_detector np_click(
         .enable(enable), .clk1Mhz(clk1Mhz), .clk1hz(clk1hz),
-        .left_click(mouse_l), .hover_num(mouse_pos),
+        .left_click(mouse_l), .hover_num(mouse_pos), .send_signal(send_signal),
         .numpad_nums(numpad_nums), .numpad_dp(numpad_dp)
+    );
+    assign numpad_led[15] = send_signal;
+
+    wire [15:0] test;
+    numpad_audio np_audio(
+        .enable(enable), .clk_100Mhz(clk_100Mhz), 
+        .speed_toggler(sw0), .send(send_signal), 
+        .message(numpad_nums), .led(numpad_led[14:0]), //
+        .audio_out(numpad_audio_out)
     );
     
     parameter num_height = 16;
@@ -123,7 +134,8 @@ module numpad_click_detector(
     input enable, left_click, clk1Mhz, clk1hz,
     input [3:0] hover_num,
     output [15:0] numpad_nums,
-    output [3:0] numpad_dp
+    output [3:0] numpad_dp, 
+    output send_signal
 );
     
     reg [1:0] seg_count = 3;
@@ -138,8 +150,13 @@ module numpad_click_detector(
     assign fourth = temp_nums[3:0] == 4'b0000 ? 4'b1111 : temp_nums[3:0]-1;
     assign numpad_nums = { first, second, third, fourth };
     
+    reg start_send = 0; 
+    create_send_signal(.start_send(start_send), .clk1Mhz(clk1Mhz), .send_signal(send_signal));
+    
     always @ (posedge clk1Mhz) begin
-        if (enable) begin
+        if (start_send) start_send <= 0; // Create a short pulse
+
+        else if (enable) begin
             // Don't register first click cuz it's merged with click to enter app
             if (!first_click && left_click > prev_left) begin
                 if (hover_num == NUMPAD_BS) begin
@@ -154,7 +171,8 @@ module numpad_click_detector(
                     input_full = 0; // Reset input full
                     
                 end else if (hover_num == NUMPAD_SEND) begin
-                
+                    start_send <= 1;
+
                 end else begin
                     if (!input_full) begin
                         if (hover_num == NUMPAD_ZERO) temp_nums = (4'b0001 << (4*seg_count)) | temp_nums;
@@ -171,12 +189,32 @@ module numpad_click_detector(
                 first_click = 0;
         end
         
-        if (enable > prev_en) begin 
-            first_click = 1;
-        end
+        if (enable > prev_en) 
+            first_click = 1; // Just entered app
         
-        prev_left <= left_click;
+        prev_left = left_click;
         prev_en = enable;
+    end
+
+endmodule
+
+
+module create_send_signal(
+    input start_send, clk1Mhz,
+    output reg send_signal = 0
+);
+    
+    reg [31:0] count = 0;
+    always @ (posedge clk1Mhz, posedge start_send) begin
+        if (start_send) begin
+            count <= 0;
+            send_signal <= 1;
+        end else if (send_signal) begin
+            if (count >= 800_000) begin
+                send_signal <= 0;
+                count <= 0;
+            end else count <= count + 1;
+        end
     end
 
 endmodule
