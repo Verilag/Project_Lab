@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Top_Student (
+module Top_Student(
     input clk_100Mhz, J_MIC_Pin3,
     input [15:0] sw, 
     input btnC, btnU, btnL, btnR, btnD,
@@ -104,7 +104,7 @@ module Top_Student (
     
     paint paint_app(
         .enable(state == PAINT),
-        .clk_100M(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw0(sw[0]), .sw15(sw[15]), .btnC(btnC), .btnR(btnR), 
+        .clk_100M(clk_100Mhz), .mouse_l(mouse_l), .mouse_r(mouse_r), .sw(sw), .btnC(btnC), .btnR(btnR), 
         .mouse_x(mouse_x), .mouse_y(mouse_y),
         .pixel_index(pixel_index),
         .led(paint_led),
@@ -113,16 +113,16 @@ module Top_Student (
     );    
     
     wire [15:0] numpad_color; wire clk1hz_signal;
-    wire [3:0] numpad_dp; wire [15:0] numpad_nums;
+    wire [3:0] numpad_dp; wire [15:0] numpad_nums, numpad_led; wire [11:0] numpad_audio_out;
     clock_gen_hz clk1hz(.clk_100Mhz(clk_100Mhz), .freq(1), .clk(clk1hz_signal));
     numpad np(
-        .enable(state == NUMPAD), .mouse_l(mouse_l),
-        .clk1Mhz(clk1Mhz_signal), .clk1hz(clk1hz_signal),
+        .enable(state == NUMPAD), .mouse_l(mouse_l), .sw0(sw[0]),
+        .clk_100Mhz(clk_100Mhz), .clk1Mhz(clk1Mhz_signal), .clk1hz(clk1hz_signal),
         .mouse_x(mouse_x), .mouse_y(mouse_y), .pixel_index(pixel_index),
         
         .color_chooser(numpad_color),
-        .numpad_dp(numpad_dp),
-        .numpad_nums(numpad_nums)
+        .numpad_dp(numpad_dp), .numpad_nums(numpad_nums),
+        .numpad_led(numpad_led), .numpad_audio_out(numpad_audio_out)
     );
     
     wire [15:0] team_basic_color; wire [11:0] team_basic_speaker;
@@ -187,6 +187,7 @@ module Top_Student (
         .basic_audio_out_speaker(basic_audio_out_speaker),
         .team_basic_out(team_basic_speaker),
         .paint_out(paint_speaker),
+        .numpad_audio_out(numpad_audio_out),
         .audio_cal_out(audio_cal_speaker),
         .jukebox_out(jukebox_speaker),
         .audio_out(audio_out)
@@ -197,7 +198,8 @@ module Top_Student (
         .basic_audio_in_led(basic_audio_in_led),
         .team_basic_led(team_basic_led),
         .paint_led(paint_led),
-        .audio_cal_led(audio_cal_led), .receiver_app_led(receiver_app_led), .jukebox_led(jukebox_led),
+        .numpad_led(numpad_led), .jukebox_led(jukebox_led),
+        .audio_cal_led(audio_cal_led), .receiver_app_led(receiver_app_led),
         .led(led)
     );
     
