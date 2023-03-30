@@ -31,7 +31,7 @@ module basic_mouse(
     parameter screen_width = 96;
    
     parameter [15:0] white_color = 16'b11111_111111_11111;
-    parameter [15:0] blue_color = 16'b10101_110110_11100;
+    parameter [15:0] blue_color = 16'b00000_000000_11111;
    
     wire [6:0] row, col;
     assign row = pixel_index / screen_width;

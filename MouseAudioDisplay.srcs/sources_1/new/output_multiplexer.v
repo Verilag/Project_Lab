@@ -62,8 +62,8 @@ module display_multiplexer(
     always @ (state) begin
         case (state)
             MENU: color_chooser = menu_color;
-            BASIC_AUDIO_IN: color_chooser = 16'b00000_111111_00000;
-            BASIC_AUDIO_OUT: color_chooser = 16'b00000_000000_11111;
+            BASIC_AUDIO_IN: color_chooser = 16'b11111_000000_00000;
+            BASIC_AUDIO_OUT: color_chooser = 16'b00000_111111_00000;
             BASIC_MOUSE: color_chooser = basic_mouse_color;
             BASIC_DISPLAY: color_chooser = basic_display_color;
             PAINT: color_chooser = paint_color;

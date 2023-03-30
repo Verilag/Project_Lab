@@ -25,8 +25,8 @@ module basic_audio_out(
     output reg [11:0] audio_out = 0
 );
 
-    reg [16:0] debounce_counter = 0;
-    reg [32:0] countdown_1s = 0;
+    reg [15:0] debounce_counter = 0;
+    reg [31:0] countdown_1s = 0;
     reg btnC_debounced = 0;
     reg btnC_prev = 0;
     reg beep_active = 0;
@@ -34,9 +34,9 @@ module basic_audio_out(
     reg [31:0] beep_frequency = 190;
 
     wire clk190hz_signal;
-    clock_gen clk190hz(.clk_100Mhz(clock_100Mhz), .freq(beep_frequency), .clk(clk190hz_signal));
+    clock_gen_hz clk190hz(.clk_100Mhz(clk_100Mhz), .freq(beep_frequency), .clk(clk190hz_signal));
 
-    always @ (posedge clock_100Mhz) begin
+    always @ (posedge clk_100Mhz) begin
         // Detect single button press
         if (btnC_debounced && !btnC_prev) begin
             beep_active <= 1;

@@ -29,7 +29,7 @@ module receiver_app(
     
     output reg [15:0] led,
     output reg [15:0] colour_chooser,
-    output [15:0] seg_wire_freq
+    output reg [15:0] seg_wire_freq
     );
     
     reg audio_receive_enable = 0; // controlled by sw[14]
@@ -96,6 +96,8 @@ module receiver_app(
         end
     end 
     
+    wire [15:0] seg_wire_freq_dummy;
+    
     audio_listener listen(
        .enable(audio_receive_enable),
        .data_stream(data_stream),
@@ -104,7 +106,7 @@ module receiver_app(
        .decimation(decimation),
        .transmission_count(transmission_count),
        .detected_freq(freq_wire),
-       .seg_wire_freq(seg_wire_freq)
+       .seg_wire_freq(seg_wire_freq_dummy)
     );
 
     // DECODING //
@@ -148,6 +150,7 @@ module receiver_app(
                     end 
                 end else begin
                     // Numpad code
+                    seg_wire_freq <= (seg_wire_freq << 4) + message_wire;
                 end                
             end
         end
