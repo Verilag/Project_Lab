@@ -91,7 +91,7 @@ module display_audio(
     wire [1:0] state;
     coord_to_state convert(.x(mouse_x), .y(mouse_y), .state(state));
     
-    wire red, blue, green, eraser, outline, screen, screen2;
+    wire red, blue, green, eraser, outline, screen;
     assign red = (col > 66 && col < 78 && row > 5 && row < 29);
     assign blue =  (col > 80 && col < 92 && row > 5 && row < 29);
     assign green =  (col > 66 && col < 78 && row > 34 && row < 58);

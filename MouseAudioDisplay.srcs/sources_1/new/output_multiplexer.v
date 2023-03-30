@@ -55,7 +55,7 @@ endmodule
 module display_multiplexer(
     input [3:0] state,
     input [15:0] menu_color, basic_mouse_color, team_basic_color, basic_display_color, paint_color,
-        numpad_color,
+        numpad_color, receiver_app_color,
     output reg [15:0] color_chooser
 );
 
@@ -68,6 +68,7 @@ module display_multiplexer(
             PAINT: color_chooser = paint_color;
             NUMPAD: color_chooser = numpad_color;
             TEAM_BASIC: color_chooser = team_basic_color;
+            TEAM_RECEIVER: color_chooser = receiver_app_color;
             default: color_chooser = 0;
         endcase
     end
@@ -95,7 +96,7 @@ endmodule
 
 module led_multiplexer(
     input [3:0] state,
-    input [15:0] team_basic_led, paint_led, audio_cal_led, basic_audio_in_led,
+    input [15:0] team_basic_led, paint_led, audio_cal_led, basic_audio_in_led, receiver_app_led,
     output reg [15:0] led
 );
 
@@ -105,6 +106,7 @@ module led_multiplexer(
             PAINT: led = paint_led;
             TEAM_BASIC: led = team_basic_led;
             TEAM_AUDIO_CAL: led = audio_cal_led;
+            TEAM_RECEIVER: led = receiver_app_led;
             default: led = 0;
         endcase
     end
@@ -114,7 +116,7 @@ endmodule
 module seg_multiplexer(
     input clk1khz,
     input [3:0] state,
-    input [15:0] team_basic_nums, audio_cal_nums, numpad_nums, basic_audio_in_nums,
+    input [15:0] team_basic_nums, audio_cal_nums, numpad_nums, basic_audio_in_nums, receiver_app_nums,
     input [3:0] team_basic_dp, numpad_dp,
     output [3:0] an, output reg [6:0] seg = 7'b1111111, output reg dp = 1
 );
@@ -133,6 +135,8 @@ module seg_multiplexer(
     number_to_segment num_seg_3(audio_cal_nums, audio_cal_seg);
     wire [27:0] basic_audio_in_seg;
     number_to_segment num_seg_4(basic_audio_in_nums, basic_audio_in_seg);
+    wire [27:0] receiver_app_seg;
+    number_to_segment receiver_seg_5(receiver_app_nums, receiver_app_seg);
     
     always @ (index) begin
         case (state)
@@ -163,6 +167,13 @@ module seg_multiplexer(
                 else if (index == 1) seg = audio_cal_seg[13:7];
                 else if (index == 2) seg = audio_cal_seg[20:14];
                 else if (index == 3) seg = audio_cal_seg[27:21];
+            end
+            TEAM_RECEIVER: begin
+                dp = 1;
+                if (index == 0) seg = receiver_app_seg[6:0];
+                else if (index == 1) seg = receiver_app_seg[13:7];
+                else if (index == 2) seg = receiver_app_seg[20:14];
+                else if (index == 3) seg = receiver_app_seg[27:21];
             end
             default: begin 
                 dp = 1;
