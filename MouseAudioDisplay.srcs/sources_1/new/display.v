@@ -59,9 +59,9 @@ module display_audio(
     genvar i;
     genvar j;
     generate
-        for (i = 0; i < 256; i = i + 1) begin
+        for (i = 255; i >= 0 ; i = i - 1) begin
             for (j = 0; j < 4; j = j + 1) begin
-                assign messageArray[i][j] = pixel_grayscale[4*i + j];
+                assign messageArray[i][j] = pixel_grayscale[4*(255-i) + (j)];
             end
         end
     endgenerate
@@ -71,7 +71,7 @@ module display_audio(
     generate
         for (m = 0; m < 512; m = m + 1) begin
             for (n = 0; n < 4; n = n + 1) begin
-                assign messageColourArray[m][n] = pixel_data[2*m + n/2][n % 2];
+                assign messageColourArray[511-m][n] = pixel_data[2*m + n/2][n % 2];
             end
         end
     endgenerate

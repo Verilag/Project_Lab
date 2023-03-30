@@ -21,7 +21,8 @@
 
 
 module paint(
-    input clk_100M, mouse_l, mouse_r, sw15, btnC, btnR, sw0, enable,
+    input clk_100M, mouse_l, mouse_r, btnC, btnR, enable,
+    input [15:0] sw,
     input [11:0] mouse_x, mouse_y,
     input [12:0] pixel_index,
     output [15:0] led, colour_chooser,
@@ -43,9 +44,9 @@ module paint(
     
     // Show colour palette, outline and mouse cursor 
     display_audio display(
-        .enable(enable), .speed_toggler(sw0), .reset(btnC), .send_message(sw15), 
+        .enable(enable), .speed_toggler(sw[0]), .reset(btnC), .send_message(sw[15]), 
         .mouse_x(mouse_x), .mouse_y(mouse_y), .left_click(mouse_l), .pixel_index(pixel_index), 
         .color_chooser(colour_chooser), .clockMouse(clockMouse), .audio_out(audio_out), 
-        .clk_100M(clk_100M), .led(led));
+        .clk_100M(clk_100M), .led(led), .colour_toggler(sw[14]));
 
 endmodule

@@ -127,7 +127,19 @@ module receiver_app(
     // Message to display/segment
     
     reg [1023:0] pixel_grayscale = 0;
-    reg [1:0] pixel_colour [1023:0];
+    reg [2047:0] pixel_colour = 0;
+    wire [1:0] pixel_colour_arr [1023:0];
+
+    genvar i;
+    genvar j;
+    generate
+        for (i = 0; i < 1024; i = i+ 1) begin
+            for (j = 0; j < 2; j = j + 1) begin
+                assign pixel_colour_arr[i][j] = pixel_colour[2*i + j];
+            end
+        end
+    endgenerate
+
     reg [7:0] counter = 0;
     
     always @(posedge message_received_flag) begin
@@ -147,6 +159,13 @@ module receiver_app(
                         end
                     end else begin
                         // Colour image code
+                        pixel_colour <= (pixel_colour << 4) + message_wire;
+                       if (counter < 512) begin
+                            counter <= counter + 1;
+                        end
+                        else begin
+                            counter <= 0;
+                        end
                     end 
                 end else begin
                     // Numpad code
@@ -159,6 +178,9 @@ module receiver_app(
     // display module
     parameter ERASER = 16'b11111_111111_11111;
     parameter BLACK = 16'b0;
+    parameter BLUE = 16'b00000_000000_11111;
+    parameter GREEN = 16'b00000_111111_00000;
+    parameter RED = 16'b11111_000000_00000;
     parameter background_color = 16'b0;
     
     wire [6:0] row, col;
@@ -174,6 +196,15 @@ module receiver_app(
                     case (pixel_grayscale[(32*(row/2)+ col/2)])
                         0: colour_chooser <= ERASER;
                         1: colour_chooser <= BLACK;
+                    endcase
+                end else colour_chooser <= background_color;
+            end else begin
+                if (screen) begin
+                    case (pixel_colour_arr[(32*(row/2)+ col/2)])
+                        0: colour_chooser <= ERASER;
+                        1: colour_chooser <= BLUE;
+                        2: colour_chooser <= GREEN;
+                        3: colour_chooser <= RED;
                     endcase
                 end else colour_chooser <= background_color;
             end
