@@ -30,8 +30,8 @@ module basic_mouse(
     parameter screen_height = 64;
     parameter screen_width = 96;
    
-    parameter [15:0] black_color = 16'b00000_000000_00000;
-    parameter [15:0] red_color = 16'b11111_000000_00000;
+    parameter [15:0] white_color = 16'b11111_111111_11111;
+    parameter [15:0] blue_color = 16'b10101_110110_11100;
    
     wire [6:0] row, col;
     assign row = pixel_index / screen_width;
@@ -42,12 +42,12 @@ module basic_mouse(
         if (enable) begin
             if (enlarge) begin
                 if ((col+1 >=  mouse_x && col-1 <= mouse_x) && (row+1 >= mouse_y && row-1 <= mouse_y))
-                    color_chooser <= black_color;
-                else color_chooser <= red_color;
+                    color_chooser <= blue_color; // Cursor
+                else color_chooser <= white_color; // Background
             end else begin
                 if (mouse_x == col && mouse_y == row)
-                    color_chooser <= red_color;
-                else color_chooser <= black_color;
+                    color_chooser <= white_color; // Cursor
+                else color_chooser <= blue_color; // Background
             end
         end
     end

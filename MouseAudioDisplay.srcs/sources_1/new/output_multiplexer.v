@@ -63,6 +63,7 @@ module display_multiplexer(
         case (state)
             MENU: color_chooser = menu_color;
             BASIC_AUDIO_IN: color_chooser = 16'b00000_111111_00000;
+            BASIC_AUDIO_OUT: color_chooser = 16'b00000_000000_11111;
             BASIC_MOUSE: color_chooser = basic_mouse_color;
             BASIC_DISPLAY: color_chooser = basic_display_color;
             PAINT: color_chooser = paint_color;
@@ -77,12 +78,13 @@ endmodule
 
 module audio_out_multiplexer(
     input [3:0] state,
-    input [11:0] team_basic_out, paint_out, audio_cal_out,
+    input [11:0] team_basic_out, paint_out, audio_cal_out, basic_audio_out_speaker,
     output reg [11:0] audio_out
 );
 
     always @ (state) begin
         case (state)
+            BASIC_AUDIO_OUT: audio_out = basic_audio_out_speaker;
             TEAM_BASIC: audio_out = team_basic_out;
             PAINT: audio_out = paint_out;
             TEAM_AUDIO_CAL: audio_out = audio_cal_out;

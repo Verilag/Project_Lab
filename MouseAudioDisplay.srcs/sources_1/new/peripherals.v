@@ -47,8 +47,10 @@ module peripherals(
         
     limit_mouse_coor limit(.x(raw_mouse_x), .y(raw_mouse_y), .limit_x(mouse_x), .limit_y(mouse_y));
     
-    wire clk20khz_signal; 
+    wire clk20khz_signal, clk50Mhz_signal; 
     clock_gen_hz clk20k(.clk_100Mhz(clk_100Mhz), .freq (20_000), .clk (clk20khz_signal));
+    clock_gen_hz clk50M(.clk_100Mhz(clk_100Mhz), .freq(50_000_000), .clk(clk50Mhz_signal));
+    
     Audio_Input mic(
         .CLK(clk_100Mhz),               // 100MHz clock
         .cs(clk20khz_signal),           // sampling clock, 20kHz
@@ -58,8 +60,6 @@ module peripherals(
         .sample(audio_in)             // 12-bit audio sample data
     );
     
-    wire clk50Mhz_signal; 
-    clock_gen_hz clk50M(.clk_100Mhz(clk_100Mhz), .freq(50_000_000), .clk(clk50Mhz_signal));
     Audio_Output speaker(
         .CLK(clk50Mhz_signal),
         .START(clk20khz_signal),

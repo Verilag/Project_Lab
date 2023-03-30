@@ -69,6 +69,11 @@ module Top_Student (
         .basic_audio_in_nums(basic_audio_in_nums)
     );
     
+    wire [11:0] basic_audio_out_speaker;
+    basic_audio_out(
+        .clk_100Mhz(clk_100Mhz), .btnC(btnC), 
+        .SW15(sw[15]), .audio_out(basic_audio_out_speaker)
+    );
     
     wire [15:0] basic_mouse_color;
     basic_mouse(
@@ -156,6 +161,7 @@ module Top_Student (
     
     audio_out_multiplexer speaker(
         .state(state), 
+        .basic_audio_out_speaker(basic_audio_out_speaker),
         .team_basic_out(team_basic_speaker),
         .paint_out(paint_speaker),
         .audio_cal_out(audio_cal_speaker),

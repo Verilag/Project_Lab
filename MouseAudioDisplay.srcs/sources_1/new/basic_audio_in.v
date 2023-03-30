@@ -47,7 +47,7 @@ module basic_audio_in(
     );
 
     assign basic_audio_in_led[8:0] = (2**volume_state) - 1;
-    assign basic_audio_in_nums = 16'b1111_1111_1111_0000 & volume_state;
+    assign basic_audio_in_nums = 16'b1111_1111_1111_0000 | volume_state;
     
 endmodule
 
