@@ -163,6 +163,16 @@ module Top_Student (
         .seg_wire_freq(receiver_app_nums)
     );
     
+    wire [11:0] jukebox_speaker;
+    wire [15:0] jukebox_led;
+    
+    jukebox jukebox_app(
+        .enable(state == JUKEBOX),
+        .clock_1ns(clk_100Mhz),
+        .sw(sw),
+        .led(jukebox_led),
+        .audio_out(jukebox_speaker)
+    );    
     
     display_multiplexer oled_display(
         .state(state),
@@ -178,6 +188,7 @@ module Top_Student (
         .team_basic_out(team_basic_speaker),
         .paint_out(paint_speaker),
         .audio_cal_out(audio_cal_speaker),
+        .jukebox_out(jukebox_speaker),
         .audio_out(audio_out)
     );
     
@@ -186,7 +197,7 @@ module Top_Student (
         .basic_audio_in_led(basic_audio_in_led),
         .team_basic_led(team_basic_led),
         .paint_led(paint_led),
-        .audio_cal_led(audio_cal_led), .receiver_app_led(receiver_app_led),
+        .audio_cal_led(audio_cal_led), .receiver_app_led(receiver_app_led), .jukebox_led(jukebox_led),
         .led(led)
     );
     

@@ -23,7 +23,7 @@ parameter BASIC_AUDIO_IN = 1;
 parameter BASIC_AUDIO_OUT = 2;
 parameter BASIC_MOUSE = 3;
 parameter BASIC_DISPLAY = 4;
-parameter DYLAN = 6;
+parameter JUKEBOX = 6;
 parameter JINGYANG = 7;
 parameter PAINT = 8;
 parameter NUMPAD = 9;
@@ -79,7 +79,7 @@ endmodule
 
 module audio_out_multiplexer(
     input [3:0] state,
-    input [11:0] team_basic_out, paint_out, audio_cal_out, basic_audio_out_speaker,
+    input [11:0] team_basic_out, paint_out, audio_cal_out, basic_audio_out_speaker, jukebox_out,
     output reg [11:0] audio_out
 );
 
@@ -89,6 +89,7 @@ module audio_out_multiplexer(
             TEAM_BASIC: audio_out = team_basic_out;
             PAINT: audio_out = paint_out;
             TEAM_AUDIO_CAL: audio_out = audio_cal_out;
+            JUKEBOX: audio_out = jukebox_out;
             default: audio_out = 0;
         endcase
     end
@@ -98,7 +99,7 @@ endmodule
 
 module led_multiplexer(
     input [3:0] state,
-    input [15:0] team_basic_led, paint_led, audio_cal_led, basic_audio_in_led, receiver_app_led,
+    input [15:0] team_basic_led, paint_led, audio_cal_led, basic_audio_in_led, receiver_app_led, jukebox_led,
     output reg [15:0] led
 );
 
@@ -109,6 +110,7 @@ module led_multiplexer(
             TEAM_BASIC: led = team_basic_led;
             TEAM_AUDIO_CAL: led = audio_cal_led;
             TEAM_RECEIVER: led = receiver_app_led;
+            JUKEBOX: led = jukebox_led;
             default: led = 0;
         endcase
     end
