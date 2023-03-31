@@ -72,7 +72,7 @@ module check_pb_scroll(
     input enable, clk100hz, btnC, btnU, btnD,
     output reg [31:0] offset = 0
 );
-    parameter max_entries = 14;
+    parameter max_entries = 13;
     parameter menu_entry_height = 13;
     parameter menu_display_height = 52;
     parameter max_offset = (max_entries * menu_entry_height) - menu_display_height; // Total menu height - screen height

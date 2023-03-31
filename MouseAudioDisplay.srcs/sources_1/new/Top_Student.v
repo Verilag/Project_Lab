@@ -140,7 +140,7 @@ module Top_Student(
     wire [11:0] audio_cal_speaker;
     wire [15:0] audio_cal_nums;
     audio_cal audio_cal_app(
-        .enable(state == TEAM_AUDIO_CAL),
+        .enable(state == AUDIO_CAL),
         .clock_1ns(clk_100Mhz),
         .sw(sw),
         .data_stream(audio_in),
@@ -153,7 +153,7 @@ module Top_Student(
     wire [15:0] receiver_app_nums;
     wire [15:0] receiver_app_colour;
     receiver_app audio_receiver_app(
-        .enable(state == TEAM_RECEIVER),
+        .enable(state == RECEIVER),
         .clock_1ns(clk_100Mhz),
         .sw(sw),
         .data_stream(audio_in),
@@ -172,12 +172,25 @@ module Top_Student(
         .sw(sw),
         .led(jukebox_led),
         .audio_out(jukebox_speaker)
-    );    
+    );
+
+    wire [3:0] qr_code_dp;
+    wire [15:0] qr_code_color, qr_code_nums;
+    qr_code qr_app(
+        .enable(state == QR_CODE), .mouse_l(mouse_l), 
+        .clk1Mhz(clk1Mhz_signal), .clk1hz(clk1hz_signal), .btnC(btnC),
+        .mouse_x(mouse_x), .mouse_y(mouse_y),
+        .pixel_index(pixel_index),
+        .color_chooser(qr_code_color),
+        .qr_code_dp(qr_code_dp),
+        .qr_code_nums(qr_code_nums)
+    );
+
     
     display_multiplexer oled_display(
         .state(state),
         .menu_color(menu_color), .basic_mouse_color(basic_mouse_color), .team_basic_color(team_basic_color), 
-        .basic_display_color(basic_display_color), .numpad_color(numpad_color),
+        .basic_display_color(basic_display_color), .numpad_color(numpad_color), .qr_code_color(qr_code_color),
         .paint_color(paint_color), .receiver_app_color(receiver_app_colour),
         .color_chooser(colour_chooser)
     );
@@ -212,6 +225,7 @@ module Top_Student(
         .audio_cal_nums(audio_cal_nums),
         .numpad_nums(numpad_nums), .numpad_dp(numpad_dp),
         .receiver_app_nums(receiver_app_nums),
+        .qr_code_nums(qr_code_nums), .qr_code_dp(qr_code_dp),
         .an(an), .seg(seg), .dp(dp)
     );
     

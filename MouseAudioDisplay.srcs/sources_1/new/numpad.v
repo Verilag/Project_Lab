@@ -60,11 +60,10 @@ module numpad(
     );
     assign numpad_led[15] = send_signal;
 
-    wire [15:0] test;
     numpad_audio np_audio(
         .enable(enable), .clk_100Mhz(clk_100Mhz), 
         .speed_toggler(sw0), .send(send_signal), 
-        .message(numpad_nums), .led(numpad_led[14:0]), //
+        .message(numpad_nums), .led(numpad_led[14:0]), 
         .audio_out(numpad_audio_out)
     );
     
@@ -101,28 +100,30 @@ module numpad(
     );
     
     always @ (pixel_index) begin
-        if (within_cursor) color_chooser = cursor_color;
-        else begin
-            if (num_pos == NUMPAD_ONE) color_chooser = one_color;
-            else if (num_pos == NUMPAD_TWO) color_chooser = two_color;
-            else if (num_pos == NUMPAD_THREE) color_chooser = three_color;
-            
-            else if (num_pos == NUMPAD_FOUR) color_chooser = four_color;
-            else if (num_pos == NUMPAD_FIVE) color_chooser = five_color;
-            else if (num_pos == NUMPAD_SIX) color_chooser = six_color;
-            
-            else if (num_pos == NUMPAD_SEVEN) color_chooser = seven_color;
-            else if (num_pos == NUMPAD_EIGHT) color_chooser = eight_color;
-            else if (num_pos == NUMPAD_NINE) color_chooser = nine_color;
-            
-            else if (num_pos == NUMPAD_BS) color_chooser = bs_color;
-            else if (num_pos == NUMPAD_ZERO) color_chooser = zero_color;
-            else if (num_pos == NUMPAD_SEND) color_chooser = send_color;
-            
-            // Invert colors of number on mouse hover
-            if (mouse_pos == num_pos) begin
-                if (color_chooser == 0) color_chooser = 16'b00000_000000_11111; // Black -> Blue
-                else if (color_chooser != 1) color_chooser = 16'b0; // White -> Black
+        if (enable) begin
+            if (within_cursor) color_chooser = cursor_color;
+            else begin
+                if (num_pos == NUMPAD_ONE) color_chooser = one_color;
+                else if (num_pos == NUMPAD_TWO) color_chooser = two_color;
+                else if (num_pos == NUMPAD_THREE) color_chooser = three_color;
+                
+                else if (num_pos == NUMPAD_FOUR) color_chooser = four_color;
+                else if (num_pos == NUMPAD_FIVE) color_chooser = five_color;
+                else if (num_pos == NUMPAD_SIX) color_chooser = six_color;
+                
+                else if (num_pos == NUMPAD_SEVEN) color_chooser = seven_color;
+                else if (num_pos == NUMPAD_EIGHT) color_chooser = eight_color;
+                else if (num_pos == NUMPAD_NINE) color_chooser = nine_color;
+                
+                else if (num_pos == NUMPAD_BS) color_chooser = bs_color;
+                else if (num_pos == NUMPAD_ZERO) color_chooser = zero_color;
+                else if (num_pos == NUMPAD_SEND) color_chooser = send_color;
+                
+                // Invert colors of number on mouse hover
+                if (mouse_pos == num_pos) begin
+                    if (color_chooser == 0) color_chooser = 16'b00000_000000_11111; // Black -> Blue
+                    else if (color_chooser != 1) color_chooser = 16'b0; // White -> Black
+                end
             end
         end
     end 
@@ -210,7 +211,7 @@ module create_send_signal(
             count <= 0;
             send_signal <= 1;
         end else if (send_signal) begin
-            if (count >= 800_000) begin
+            if (count >= 300_000) begin
                 send_signal <= 0;
                 count <= 0;
             end else count <= count + 1;
